@@ -26,8 +26,17 @@ public class Employee {
     @Column
     private String password;
 
+    @Column
+    private double salary;
+
+    @ManyToOne(targetEntity = Position.class)
+    @JoinColumn(name = "position_id")
+    private Position position;
+
     @ManyToOne(targetEntity = Company.class)
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "company_id")
     private Company company;
+
+    private long companyId;
 
 }

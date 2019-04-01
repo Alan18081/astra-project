@@ -1,4 +1,4 @@
-package com.alex.astraproject.companiesservice.services;
+package com.alex.astraproject.companiesservice.services.impl;
 
 import com.alex.astraproject.companiesservice.dto.employees.CreateEmployeeDto;
 import com.alex.astraproject.companiesservice.dto.employees.UpdateEmployeeDto;
@@ -6,6 +6,7 @@ import com.alex.astraproject.companiesservice.entities.Employee;
 import com.alex.astraproject.companiesservice.exceptions.Messages;
 import com.alex.astraproject.companiesservice.exceptions.NotFoundException;
 import com.alex.astraproject.companiesservice.repositories.EmployeesRepository;
+import com.alex.astraproject.companiesservice.services.EmployeesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +46,7 @@ public class EmployeesServiceImpl implements EmployeesService {
 
     @Override
     public List<Employee> findMany(long companyId) {
-        return employeesRepository.findAllByCompany(companyId);
+        return employeesRepository.findAllByCompanyId(companyId);
     }
 
     @Override

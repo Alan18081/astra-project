@@ -12,7 +12,7 @@ import java.util.List;
 @MessagingGateway
 public interface EmployeesGateway {
 
-    @Gateway(requestChannel = "enrich", replyChannel = EmployeeProcessor.RES_FIND_MANY_EMPLOYEES_BY_COMPANY)
-    List<Employee> findManyEmployees(long companyId);
+    @Gateway(requestChannel = "enrich", replyChannel = "responseChannel")
+    String findManyEmployees(long companyId);
 
 }
