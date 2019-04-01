@@ -2,12 +2,16 @@ package com.alex.astraproject.apigateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.config.EnableIntegration;
 import org.springframework.messaging.converter.MessageConverter;
 
 @SpringBootApplication
+@EnableEurekaClient
+@EnableFeignClients
 public class ApigatewayApplication {
 
 //    @Bean

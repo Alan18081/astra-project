@@ -1,4 +1,4 @@
-package com.alex.astraproject.apigateway.entities;
+package com.alex.astraproject.authservice.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
