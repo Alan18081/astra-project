@@ -1,4 +1,4 @@
-package com.alex.astraproject.shared.authservice;
+package com.alex.astraproject.authservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Company {
+public class CompanyEntity {
 
     @Id
     @GeneratedValue
@@ -19,7 +19,7 @@ public class Company {
     @Column
     private String corporateEmail;
 
-    @OneToMany(targetEntity = Employee.class)
-    private List<Employee> employees;
+    @OneToMany(targetEntity = EmployeeEntity.class)
+    private List<EmployeeEntity> employees;
 
 }

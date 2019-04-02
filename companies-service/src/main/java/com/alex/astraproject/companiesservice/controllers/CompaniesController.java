@@ -1,9 +1,9 @@
 package com.alex.astraproject.companiesservice.controllers;
 
-import com.alex.astraproject.companiesservice.dto.companies.CreateCompanyDto;
-import com.alex.astraproject.companiesservice.dto.companies.UpdateCompanyDto;
-import com.alex.astraproject.companiesservice.entities.Company;
+import com.alex.astraproject.companiesservice.entities.CompanyEntity;
 import com.alex.astraproject.companiesservice.services.CompaniesService;
+import com.alex.astraproject.shared.dto.companies.CreateCompanyDto;
+import com.alex.astraproject.shared.dto.companies.UpdateCompanyDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,17 +17,17 @@ public class CompaniesController {
     private CompaniesService companiesService;
 
     @GetMapping("{id}")
-    public Company findById(@PathVariable long id) {
+    public CompanyEntity findById(@PathVariable long id) {
         return companiesService.findById(id);
     }
 
     @PostMapping
-    public Company createOne(@Valid CreateCompanyDto dto) {
+    public CompanyEntity createOne(@Valid CreateCompanyDto dto) {
         return companiesService.createOne(dto);
     }
 
     @PutMapping("{id}")
-    public Company updateById(@PathVariable long id, @Valid UpdateCompanyDto dto) {
+    public CompanyEntity updateById(@PathVariable long id, @Valid UpdateCompanyDto dto) {
         return companiesService.updateById(id, dto);
     }
 

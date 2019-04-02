@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Data
 @Entity
-public class Position {
+public class PositionEntity {
 
     @Id
     @GeneratedValue
@@ -22,8 +22,8 @@ public class Position {
     @Column
     private int quantity;
 
-    @OneToMany(targetEntity = Employee.class)
-    private Set<Employee> employees;
+    @OneToMany(targetEntity = EmployeeEntity.class)
+    private Set<EmployeeEntity> employees;
 
 
 }

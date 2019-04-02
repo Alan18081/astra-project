@@ -1,4 +1,4 @@
-package com.alex.astraproject.companiesservice.dto.companies;
+package com.alex.astraproject.shared.dto.companies;
 
 import lombok.Data;
 
@@ -7,12 +7,12 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class CreateCompanyDto {
-    @NotNull
-    @NotEmpty
-    private String name;
-
+public class CompanyLoginDto {
     @NotNull
     @Email
     private String email;
+
+    @NotNull
+    @NotEmpty
+    private String password;
 }

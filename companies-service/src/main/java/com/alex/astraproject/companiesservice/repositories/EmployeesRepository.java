@@ -1,17 +1,16 @@
 package com.alex.astraproject.companiesservice.repositories;
 
-import com.alex.astraproject.companiesservice.entities.Company;
-import com.alex.astraproject.companiesservice.entities.Employee;
+import com.alex.astraproject.companiesservice.entities.EmployeeEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface EmployeesRepository extends CrudRepository<Employee, Long> {
+public interface EmployeesRepository extends CrudRepository<EmployeeEntity, Long> {
 
-    Employee findByEmail(String email);
+    EmployeeEntity findByEmail(String email);
 
-    List<Employee> findAllByCompanyId(long companyId);
+    List<EmployeeEntity> findAllByCompanyId(long companyId);
 
 }

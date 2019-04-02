@@ -1,16 +1,16 @@
 package com.alex.astraproject.companiesservice.services;
 
-import com.alex.astraproject.companiesservice.dto.companies.CreateCompanyDto;
-import com.alex.astraproject.companiesservice.dto.companies.UpdateCompanyDto;
-import com.alex.astraproject.companiesservice.entities.Company;
+import com.alex.astraproject.companiesservice.entities.CompanyEntity;
+import com.alex.astraproject.shared.dto.companies.CreateCompanyDto;
+import com.alex.astraproject.shared.dto.companies.UpdateCompanyDto;
 
 public interface CompaniesService {
 
-    Company createOne(CreateCompanyDto dto);
+    CompanyEntity createOne(CreateCompanyDto dto);
 
-    Company findById(long id);
+    CompanyEntity findById(long id);
 
-    Company updateById(long id, UpdateCompanyDto dto);
+    CompanyEntity updateById(long id, UpdateCompanyDto dto);
 
     void removeById(long id);
 

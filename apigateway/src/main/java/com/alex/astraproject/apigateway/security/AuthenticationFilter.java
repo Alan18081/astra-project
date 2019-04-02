@@ -1,28 +1,14 @@
-package com.alex.astraproject.shared.authservice.security;
+package com.alex.astraproject.apigateway.security;
 
-import com.alex.astraproject.apigateway.dto.companies.CompanyLoginDto;
-import com.alex.astraproject.apigateway.entities.Company;
 import com.alex.astraproject.apigateway.feign.clients.CompaniesClient;
-import com.alex.astraproject.apigateway.shared.AppProperties;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.context.ApplicationContext;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.client.HttpClientErrorException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
@@ -41,11 +27,11 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
             CompanyLoginDto credentials = new ObjectMapper().readValue(request.getInputStream(), CompanyLoginDto.class);
 
             return authenticationManager.authenticate(
-              new UsernamePasswordAuthenticationToken(
-                      credentials.getEmail(),
-                      credentials.getPassword(),
-                      new ArrayList<>()
-              )
+                    new UsernamePasswordAuthenticationToken(
+                            credentials.getEmail(),
+                            credentials.getPassword(),
+                            new ArrayList<>()
+                    )
             );
         } catch (IOException e) {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Invalid ");

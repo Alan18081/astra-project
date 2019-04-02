@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @JsonIgnoreProperties({ "password" })
-public class Employee {
+public class EmployeeEntity {
 
     @Id
     @GeneratedValue
@@ -29,13 +29,13 @@ public class Employee {
     @Column
     private double salary;
 
-    @ManyToOne(targetEntity = Position.class)
+    @ManyToOne(targetEntity = PositionEntity.class)
     @JoinColumn(name = "position_id")
-    private Position position;
+    private PositionEntity position;
 
-    @ManyToOne(targetEntity = Company.class)
+    @ManyToOne(targetEntity = CompanyEntity.class)
     @JoinColumn(name = "company_id")
-    private Company company;
+    private CompanyEntity company;
 
     private long companyId;
 

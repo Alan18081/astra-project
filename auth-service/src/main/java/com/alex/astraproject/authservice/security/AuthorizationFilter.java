@@ -1,4 +1,4 @@
-package com.alex.astraproject.shared.authservice.security;
+package com.alex.astraproject.authservice.security;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.context.ApplicationContext;

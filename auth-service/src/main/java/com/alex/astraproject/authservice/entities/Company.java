@@ -1,4 +1,4 @@
-package com.alex.astraproject.shared.authservice.entities;
+package com.alex.astraproject.authservice.entities;
 
 import lombok.Data;
 

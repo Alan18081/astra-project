@@ -1,4 +1,4 @@
-package com.alex.astraproject.shared.authservice;
+package com.alex.astraproject.authservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

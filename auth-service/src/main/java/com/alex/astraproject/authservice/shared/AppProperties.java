@@ -1,4 +1,4 @@
-package com.alex.astraproject.shared.authservice.shared;
+package com.alex.astraproject.authservice.shared;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

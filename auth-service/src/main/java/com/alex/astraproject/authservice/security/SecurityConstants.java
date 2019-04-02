@@ -1,4 +1,4 @@
-package com.alex.astraproject.shared.authservice.security;
+package com.alex.astraproject.authservice.security;
 
 public class SecurityConstants {
     public static final long EXPIRATION_TIME = 864000000;

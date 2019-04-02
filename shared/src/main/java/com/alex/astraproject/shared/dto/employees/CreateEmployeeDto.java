@@ -2,6 +2,7 @@ package com.alex.astraproject.shared.dto.employees;
 
 import lombok.Data;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -18,6 +19,7 @@ public class CreateEmployeeDto {
 
     @NotNull
     @NotEmpty
+    @Email
     private String email;
 
     @NotNull
