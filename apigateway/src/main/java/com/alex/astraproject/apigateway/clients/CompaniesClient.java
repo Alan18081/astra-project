@@ -1,25 +1,27 @@
 
-package com.alex.astraproject.apigateway.feign.clients;
+package com.alex.astraproject.apigateway.clients;
 
 import com.alex.astraproject.shared.dto.employees.CreateEmployeeDto;
 import com.alex.astraproject.shared.dto.employees.UpdateEmployeeDto;
 import com.alex.astraproject.shared.entities.Company;
+import feign.Param;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(value = "companies-service", url = "/companies")
+@Component
+@FeignClient("companies-client")
+@RibbonClient(name = "companies-service")
 public interface CompaniesClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "", consumes = "application/json")
-    List<Company> findMany(@RequestParam("page") int page, @RequestParam("page") int limit);
+    @RequestMapping(method = RequestMethod.GET, value = "/companies?page={page}&limit={limit}", consumes = "application/json")
+    List<Company> findMany(@PathVariable("page") int page, @PathVariable("limit") int limit);
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}", consumes = "application/json")
-    Company findById(@PathVariable long id);
+    Company findById(@PathVariable("id") long id);
 
     @RequestMapping(method = RequestMethod.GET, value = "/email/{email}", consumes = "application/json")
     Company findByEmail(@PathVariable String email);

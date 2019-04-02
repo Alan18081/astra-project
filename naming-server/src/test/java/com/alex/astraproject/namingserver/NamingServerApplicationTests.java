@@ -1,4 +1,4 @@
-package com.alex.astraproject.shared.namingserver;
+package com.alex.astraproject.namingserver;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

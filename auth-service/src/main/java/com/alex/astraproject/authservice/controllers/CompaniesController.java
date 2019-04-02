@@ -15,7 +15,7 @@ public class CompaniesController {
 
     @PostMapping("/login")
     public JwtCompanyResponse loginCompany(@RequestBody @Valid CompanyLoginDto dto) {
-
+        return null;
     }
 
 }
