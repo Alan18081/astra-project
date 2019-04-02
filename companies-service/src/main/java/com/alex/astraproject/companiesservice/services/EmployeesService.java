@@ -1,8 +1,9 @@
 package com.alex.astraproject.companiesservice.services;
 
-import com.alex.astraproject.companiesservice.dto.employees.CreateEmployeeDto;
-import com.alex.astraproject.companiesservice.dto.employees.UpdateEmployeeDto;
-import com.alex.astraproject.companiesservice.entities.Employee;
+
+import com.alex.astraproject.shared.dto.employees.CreateEmployeeDto;
+import com.alex.astraproject.shared.dto.employees.UpdateEmployeeDto;
+import com.alex.astraproject.shared.entities.Employee;
 
 import java.util.List;
 

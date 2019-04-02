@@ -1,9 +1,7 @@
 package com.alex.astraproject.apigateway.controllers;
 
-import com.alex.astraproject.apigateway.entities.Company;
-import com.alex.astraproject.apigateway.entities.Employee;
 import com.alex.astraproject.apigateway.feign.clients.CompaniesClient;
-import com.alex.astraproject.apigateway.feign.clients.EmployeesClient;
+import com.alex.astraproject.shared.entities.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,5 +21,5 @@ public class CompaniesController {
     public List<Company> findMany(@RequestParam("page") int page, @RequestParam("limit") int limit) {
         return companiesClient.findMany(page, limit);
     }
-
 }
+

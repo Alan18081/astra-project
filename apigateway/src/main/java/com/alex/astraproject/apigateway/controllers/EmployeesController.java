@@ -1,9 +1,9 @@
 package com.alex.astraproject.apigateway.controllers;
 
-import com.alex.astraproject.apigateway.dto.employees.CreateEmployeeDto;
-import com.alex.astraproject.apigateway.dto.employees.UpdateEmployeeDto;
-import com.alex.astraproject.apigateway.entities.Employee;
 import com.alex.astraproject.apigateway.feign.clients.EmployeesClient;
+import com.alex.astraproject.shared.dto.employees.CreateEmployeeDto;
+import com.alex.astraproject.shared.dto.employees.UpdateEmployeeDto;
+import com.alex.astraproject.shared.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

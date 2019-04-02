@@ -75,7 +75,11 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
-
+        <dependency>
+            <groupId>com.alex.astraproject</groupId>
+            <artifactId>shared</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

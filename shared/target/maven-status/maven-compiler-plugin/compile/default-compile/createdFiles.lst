@@ -1,0 +1,7 @@
+com/alex/astraproject/shared/entities/Company.class
+com/alex/astraproject/shared/dto/employees/UpdateEmployeeDto.class
+com/alex/astraproject/shared/dto/employees/FindManyEmployeesDto.class
+com/alex/astraproject/shared/dto/employees/CreateEmployeeDto.class
+com/alex/astraproject/shared/entities/Employee.class
+com/alex/astraproject/shared/dto/companies/CreateCompanyDto.class
+com/alex/astraproject/shared/dto/companies/UpdateCompanyDto.class

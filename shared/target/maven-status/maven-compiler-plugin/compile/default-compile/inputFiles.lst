@@ -1,0 +1,7 @@
+/home/octopus/IdeaProjects/astra-project/shared/src/main/java/com/alex/astraproject/shared/dto/employees/FindManyEmployeesDto.java
+/home/octopus/IdeaProjects/astra-project/shared/src/main/java/com/alex/astraproject/shared/dto/employees/CreateEmployeeDto.java
+/home/octopus/IdeaProjects/astra-project/shared/src/main/java/com/alex/astraproject/shared/dto/companies/UpdateCompanyDto.java
+/home/octopus/IdeaProjects/astra-project/shared/src/main/java/com/alex/astraproject/shared/entities/Employee.java
+/home/octopus/IdeaProjects/astra-project/shared/src/main/java/com/alex/astraproject/shared/entities/Company.java
+/home/octopus/IdeaProjects/astra-project/shared/src/main/java/com/alex/astraproject/shared/dto/employees/UpdateEmployeeDto.java
+/home/octopus/IdeaProjects/astra-project/shared/src/main/java/com/alex/astraproject/shared/dto/companies/CreateCompanyDto.java

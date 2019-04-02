@@ -1,8 +1,6 @@
-package com.alex.astraproject.apigateway.feign.clients;
+package com.alex.astraproject.shared.authservice.clients;
 
-import com.alex.astraproject.shared.dto.employees.CreateEmployeeDto;
-import com.alex.astraproject.shared.dto.employees.UpdateEmployeeDto;
-import com.alex.astraproject.shared.entities.Employee;
+import com.alex.astraproject.shared.authservice.entities.Employee;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

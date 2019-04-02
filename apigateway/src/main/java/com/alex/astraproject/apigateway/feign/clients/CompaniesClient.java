@@ -1,9 +1,9 @@
+
 package com.alex.astraproject.apigateway.feign.clients;
 
-import com.alex.astraproject.apigateway.dto.employees.CreateEmployeeDto;
-import com.alex.astraproject.apigateway.dto.employees.UpdateEmployeeDto;
-import com.alex.astraproject.apigateway.entities.Company;
-import com.alex.astraproject.apigateway.entities.Employee;
+import com.alex.astraproject.shared.dto.employees.CreateEmployeeDto;
+import com.alex.astraproject.shared.dto.employees.UpdateEmployeeDto;
+import com.alex.astraproject.shared.entities.Company;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
