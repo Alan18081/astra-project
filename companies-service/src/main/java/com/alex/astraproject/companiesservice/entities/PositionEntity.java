@@ -25,5 +25,8 @@ public class PositionEntity {
     @OneToMany(targetEntity = EmployeeEntity.class)
     private Set<EmployeeEntity> employees;
 
+    @ManyToOne(targetEntity = CompanyEntity.class)
+    @JoinColumn(name = "company_id")
+    private CompanyEntity companyEntity;
 
 }

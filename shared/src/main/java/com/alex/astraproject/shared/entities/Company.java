@@ -16,4 +16,6 @@ public class Company {
 
     private List<Employee> employees;
 
+    private String password;
+
 }

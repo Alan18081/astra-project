@@ -37,6 +37,5 @@ public class EmployeeEntity {
     @JoinColumn(name = "company_id")
     private CompanyEntity company;
 
-    private long companyId;
 
 }

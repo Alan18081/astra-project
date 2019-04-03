@@ -1,4 +1,4 @@
-package com.alex.astraproject.apigateway.security;
+package com.alex.astraproject.shared.security;
 
 public class SecurityConstants {
     public static final long EXPIRATION_TIME = 864000000;

@@ -3,14 +3,16 @@ package com.alex.astraproject.companiesservice.services;
 
 import com.alex.astraproject.companiesservice.entities.EmployeeEntity;
 import com.alex.astraproject.shared.dto.employees.CreateEmployeeDto;
+import com.alex.astraproject.shared.dto.employees.FindManyEmployeesDto;
 import com.alex.astraproject.shared.dto.employees.UpdateEmployeeDto;
 import com.alex.astraproject.shared.entities.Employee;
+import com.alex.astraproject.shared.responses.PaginatedResponse;
 
 import java.util.List;
 
 public interface EmployeesService {
 
-    List<EmployeeEntity> findMany(long companyId);
+    PaginatedResponse<EmployeeEntity> findManyByCompany(FindManyEmployeesDto dto);
 
     EmployeeEntity findById(long id);
 
@@ -18,6 +20,6 @@ public interface EmployeesService {
 
     EmployeeEntity updateById(long id, UpdateEmployeeDto dto);
 
-    void removeOne(long id);
+    void removeById(long id);
 
 }

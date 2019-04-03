@@ -1,4 +1,4 @@
-package com.alex.astraproject.shared.apigateway;
+package com.alex.astraproject.apigateway;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

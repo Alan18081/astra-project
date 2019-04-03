@@ -1,8 +1,7 @@
 package com.alex.astraproject.apigateway.security;
 
-import com.alex.astraproject.shared.SharedContext;
+import com.alex.astraproject.apigateway.clients.AuthClient;
 import com.alex.astraproject.shared.dto.companies.CompanyLoginDto;
-import com.alex.astraproject.shared.feign.clients.AuthClient;
 import com.alex.astraproject.shared.responses.JwtCompanyResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.ApplicationContext;
@@ -15,7 +14,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,13 +21,11 @@ import java.util.ArrayList;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
-//    private final CompaniesClient companiesClient;
-    private final SharedContext.AuthClient authClient;
+    private final AuthClient authClient;
 
     public AuthenticationFilter(AuthenticationManager manager, ApplicationContext context) {
         authenticationManager = manager;
-//        companiesClient = context.getBean(CompaniesClient.class);
-        authClient = context.getBean(SharedContext.AuthClient.class);
+        authClient = context.getBean(AuthClient.class);
     }
 
     @Override

@@ -14,5 +14,8 @@ public class CreateCompanyDto {
 
     @NotNull
     @Email
-    private String email;
+    private String corporateEmail;
+
+    @NotEmpty
+    private String password;
 }

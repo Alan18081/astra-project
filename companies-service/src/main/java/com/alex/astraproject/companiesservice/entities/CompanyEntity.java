@@ -19,6 +19,9 @@ public class CompanyEntity {
     @Column
     private String corporateEmail;
 
+    @Column
+    private String hashedPassword;
+
     @OneToMany(targetEntity = EmployeeEntity.class)
     private List<EmployeeEntity> employees;
 
