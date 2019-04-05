@@ -4,6 +4,7 @@ import com.alex.astraproject.apigateway.clients.AuthClient;
 import com.alex.astraproject.shared.dto.companies.CompanyLoginDto;
 import com.alex.astraproject.shared.dto.companies.VerifyCompanyTokenDto;
 import com.alex.astraproject.shared.entities.Company;
+import com.alex.astraproject.shared.security.SecurityConstants;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

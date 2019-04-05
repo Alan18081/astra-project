@@ -1,15 +1,17 @@
 package com.alex.astraproject.companiesservice.controllers;
 
-import com.alex.astraproject.companiesservice.entities.CompanyEntity;
-import com.alex.astraproject.companiesservice.services.CompaniesService;
+import com.alex.astraproject.companiesservice.domain.EventType;
 import com.alex.astraproject.shared.dto.companies.CreateCompanyDto;
 import com.alex.astraproject.shared.dto.companies.PaginationDto;
 import com.alex.astraproject.shared.dto.companies.UpdateCompanyDto;
 import com.alex.astraproject.shared.messages.Errors;
 import com.alex.astraproject.shared.responses.PaginatedResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.integration.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -17,10 +19,13 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/companies")
+@EnableBinding(Source.class)
 public class CompaniesController {
 
     @Autowired
     private CompaniesService companiesService;
+
+    private Source source;
 
     @GetMapping
     public PaginatedResponse<CompanyEntity> findMany(PaginationDto dto) {
@@ -38,8 +43,11 @@ public class CompaniesController {
     }
 
     @PostMapping
-    public CompanyEntity createOne(@RequestBody @Valid CreateCompanyDto dto) {
-        return companiesService.createOne(dto);
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public void createOne(@RequestBody @Valid CreateCompanyDto dto) {
+        CompanyEntity company = companiesService.createOne(dto);
+        CompanyEvent event = new CompanyEvent(company, EventType.COMPANY_CREATED);
+        source.output().send(MessageBuilder.withPayload(event).build());
     }
 
     @PutMapping("{id}")

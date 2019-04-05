@@ -1,7 +1,7 @@
 package com.alex.astraproject.companiesservice.controllers;
 
-import com.alex.astraproject.companiesservice.entities.EmployeeEntity;
-import com.alex.astraproject.companiesservice.services.EmployeesService;
+import com.alex.astraproject.companiesservice.domain.employee.EmployeeEntity;
+import com.alex.astraproject.companiesservice.domain.employee.EmployeesService;
 import com.alex.astraproject.shared.dto.employees.CreateEmployeeDto;
 import com.alex.astraproject.shared.dto.employees.FindManyEmployeesDto;
 import com.alex.astraproject.shared.dto.employees.UpdateEmployeeDto;
