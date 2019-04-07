@@ -17,7 +17,7 @@ import java.util.List;
 @RibbonClient(name = "companies-service")
 public interface EmployeesClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/employees?companyId={companyId}", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.GET, value = "/commands?companyId={companyId}", consumes = "application/json")
     List<Employee> findManyByCompanyId(@PathVariable("companyId") long companyId);
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}", consumes = "application/json")

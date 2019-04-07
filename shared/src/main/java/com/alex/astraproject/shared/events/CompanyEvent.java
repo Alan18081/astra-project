@@ -1,41 +1,29 @@
 package com.alex.astraproject.shared.events;
 
-import com.alex.astraproject.companiesservice.domain.EventType;
+import com.alex.astraproject.shared.eventTypes.CompanyEventType;
+import lombok.Data;
 
+import java.util.Date;
 import java.util.UUID;
 
-public class CompanyEvent extends DomainEvent<CompanyEntity, Long> {
+@Data
+public class CompanyEvent {
 
-    private CompanyEntity subject;
-    private EventType eventType;
+    private long id;
 
-    public CompanyEvent() {
-        this.setId((long) UUID.randomUUID().hashCode());
+    private UUID entityId;
+
+    private Date creationDate;
+
+    private CompanyEventType type;
+
+    private Object data;
+
+    public CompanyEvent(CompanyEventType type, UUID entityId, Object data) {
+        this.type = type;
+        this.entityId = entityId;
+        this.data = data;
+        this.creationDate = new Date();
     }
 
-    public CompanyEvent(CompanyEntity subject, EventType eventType) {
-        this();
-        this.subject = subject;
-        this.eventType = eventType;
-    }
-
-    @Override
-    public CompanyEntity getSubject() {
-        return subject;
-    }
-
-    @Override
-    public void setSubject(CompanyEntity subject) {
-        this.subject = subject;
-    }
-
-    @Override
-    public EventType getEventType() {
-        return eventType;
-    }
-
-    @Override
-    public void setEventType(EventType eventType) {
-        this.eventType = eventType;
-    }
 }

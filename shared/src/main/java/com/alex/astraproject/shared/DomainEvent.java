@@ -1,6 +1,18 @@
 package com.alex.astraproject.shared;
 
-public class DomainEvent<T, ID> {
+import lombok.Data;
+
+import java.util.Date;
+import java.util.UUID;
+
+@Data
+public abstract class DomainEvent<ID> {
     private ID id;
-    private T subject;
+    private UUID aggregateId;
+    private long timestamp;
+
+    protected DomainEvent(UUID aggregateId) {
+        this.aggregateId = aggregateId;
+        this.timestamp = new Date().getTime();
+    }
 }
