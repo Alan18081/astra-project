@@ -1,9 +1,6 @@
 
 package com.alex.astraproject.apigateway.clients;
 
-import com.alex.astraproject.shared.dto.companies.CreateCompanyDto;
-import com.alex.astraproject.shared.dto.companies.UpdateCompanyDto;
-import com.alex.astraproject.shared.entities.Company;
 import com.alex.astraproject.shared.events.EmployeeEvent;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;

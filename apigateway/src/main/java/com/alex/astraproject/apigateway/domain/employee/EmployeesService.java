@@ -49,7 +49,7 @@ public class EmployeesService {
 
     public void createEmployee(CreatedEmployeeEventDto dto) {
         EmployeeAggregate employeeAggregate = new EmployeeAggregate();
-        employeeAggregate.initialize();
+        employeeAggregate.initialize(dto.getEmployeeId());
         List<EmployeeEvent> events = companiesClient.findManyEventsById(
                 dto.getEmployeeId(), 0);
         employeeAggregate.replay(events);

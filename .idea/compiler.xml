@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="apigateway" />
         <module name="companies-service" />
         <module name="naming-server" />
         <module name="query-service" />
@@ -13,6 +14,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="apigateway" target="1.8" />
       <module name="companies-service" target="1.8" />
       <module name="naming-server" target="1.8" />
       <module name="query-service" target="1.8" />
