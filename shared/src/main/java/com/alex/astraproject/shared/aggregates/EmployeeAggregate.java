@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-public class EmployeeAggregate implements Aggregate<Long> {
+public class EmployeeAggregate implements Aggregate {
 
     private UUID id;
 
@@ -23,8 +23,8 @@ public class EmployeeAggregate implements Aggregate<Long> {
     private Date createdAt;
 
     @Override
-    public void initialize() {
-        this.id = UUID.randomUUID();
+    public void initialize(UUID id) {
+        this.id = id;
     }
 
     public void replay(List<DomainEvent<Long>> domainEvents) {

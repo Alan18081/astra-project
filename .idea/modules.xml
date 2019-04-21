@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/apigateway/apigateway.iml" filepath="$PROJECT_DIR$/apigateway/apigateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/astra-project.iml" filepath="$PROJECT_DIR$/.idea/astra-project.iml" />
       <module fileurl="file://$PROJECT_DIR$/auth-gateway/auth-gateway.iml" filepath="$PROJECT_DIR$/auth-gateway/auth-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/companies-service/companies-service.iml" filepath="$PROJECT_DIR$/companies-service/companies-service.iml" />

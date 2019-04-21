@@ -6,14 +6,22 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+<<<<<<< HEAD
         <module name="auth-gateway" />
+=======
+        <module name="apigateway" />
+>>>>>>> eba831657e4fab57a76e250c32db3623ac6d96a1
         <module name="companies-service" />
         <module name="naming-server" />
         <module name="shared" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+<<<<<<< HEAD
       <module name="auth-gateway" target="1.8" />
+=======
+      <module name="apigateway" target="1.8" />
+>>>>>>> eba831657e4fab57a76e250c32db3623ac6d96a1
       <module name="companies-service" target="1.8" />
       <module name="naming-server" target="1.8" />
       <module name="query-service" target="1.8" />
