@@ -1,0 +1,145 @@
+package com.alex.astraproject.companiesservice.domain.employee;
+
+import com.alex.astraproject.companiesservice.clients.CompanyQueryClient;
+import com.alex.astraproject.companiesservice.clients.EmployeeQueryClient;
+import com.alex.astraproject.companiesservice.domain.employee.commands.CreateEmployeeCommand;
+import com.alex.astraproject.companiesservice.domain.employee.commands.UpdateEmployeeCommand;
+import com.alex.astraproject.shared.entities.Company;
+import com.alex.astraproject.shared.entities.Employee;
+import com.alex.astraproject.shared.eventTypes.EmployeeEventType;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureWebTestClient
+@RunWith(SpringRunner.class)
+@ActiveProfiles("test")
+@DirtiesContext
+public class EmployeeControllerTest {
+    UUID employeeId = UUID.randomUUID();
+    List<EmployeeEventEntity> list;
+
+    @Autowired
+    WebTestClient client;
+
+    @Autowired
+    EmployeeEventsRepository employeeEventsRepository;
+
+    @MockBean
+		EmployeeQueryClient mockEmployeeQueryClient;
+
+    @MockBean
+		CompanyQueryClient companyQueryClient;
+
+    @Before
+    public void initData() {
+      this.list = Arrays.asList(
+        new EmployeeEventEntity(null, employeeId, EmployeeEventType.CREATED, null, 1),
+	      new EmployeeEventEntity(null, employeeId, EmployeeEventType.UPDATED, null, 2),
+	      new EmployeeEventEntity(null, employeeId, EmployeeEventType.FIRED, null, 3)
+      );
+
+	    employeeEventsRepository.deleteAll()
+		    .thenMany(Flux.fromIterable(list))
+		    .flatMap(employeeEventsRepository::save)
+		    .doOnNext(item -> {
+			    System.out.println("Inserted: " + item);
+		    })
+		    .blockLast();
+    }
+
+    @Test
+    public void createEmployeeCommand() {
+    	UUID mockCompanyId = UUID.randomUUID();
+    	Company mockCompany = new Company();
+    	mockCompany.setId(mockCompanyId);
+    	Mockito.when(companyQueryClient.findOneById(anyString())).thenReturn(mockCompany);
+      CreateEmployeeCommand command = new CreateEmployeeCommand("Alan", "Morgan", "morgan@gmail.com", "123456", mockCompanyId);
+      client.post().uri("/employees")
+        .body(Mono.just(command), CreateEmployeeCommand.class)
+        .exchange()
+        .expectStatus().isCreated()
+        .expectBody()
+	      .consumeWith(entityExchangeResult -> {
+		      StepVerifier.create(employeeEventsRepository.findAllByEmployeeIdAndRevisionGreaterThan(employeeId, 0))
+			      .expectSubscription()
+			      .expectNextCount(4l)
+			      .verifyComplete();
+	      });
+    }
+
+    @Test
+    public void updateEmployeeCommand() {
+	    Employee mockEmployee = new Employee();
+	    mockEmployee.setId(employeeId);
+	    Mockito.when(mockEmployeeQueryClient.findOneById(anyString())).thenReturn(Optional.of(mockEmployee));
+      UpdateEmployeeCommand command = new UpdateEmployeeCommand();
+      command.setFirstName("Alex");
+      command.setLastName("Markus");
+
+      client.patch().uri("/employees/{id}", employeeId.toString())
+        .body(Mono.just(command), UpdateEmployeeCommand.class)
+        .exchange()
+        .expectStatus().isAccepted()
+        .expectBody()
+        .consumeWith(entityExchangeResult -> {
+          StepVerifier.create(employeeEventsRepository.findAllByEmployeeIdAndRevisionGreaterThan(employeeId, 0))
+		        .expectSubscription()
+		        .expectNextCount(4l)
+		        .verifyComplete();
+	        });
+    }
+
+    @Test
+		public void getListOfEvents() {
+    	client.get().uri("/employees/{id}/events?revisionFrom={revisionFrom}", employeeId, 1)
+		    .accept(MediaType.APPLICATION_JSON)
+		    .exchange()
+		    .expectStatus().isOk()
+		    .expectBodyList(EmployeeEventEntity.class)
+	      .consumeWith(response -> {
+	      	List<EmployeeEventEntity> body = response.getResponseBody();
+	      	assertEquals(2, body.size());
+	      });
+    }
+
+	@Test
+	public void deleteEmployeeCommand() {
+		Employee mockEmployee = new Employee();
+		mockEmployee.setId(employeeId);
+		Mockito.when(mockEmployeeQueryClient.findOneById(anyString())).thenReturn(Optional.of(mockEmployee));
+		client.delete().uri("/employees/{id}", employeeId.toString())
+			.exchange()
+			.expectStatus().isAccepted()
+			.expectBody()
+			.consumeWith(entityExchangeResult -> {
+				StepVerifier.create(employeeEventsRepository.findAllByEmployeeIdAndRevisionGreaterThan(employeeId, 0))
+					.expectSubscription()
+					.expectNextCount(4l)
+					.verifyComplete();
+			});
+	}
+}

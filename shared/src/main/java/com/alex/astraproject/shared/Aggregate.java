@@ -5,7 +5,6 @@ import java.util.UUID;
 
 public interface Aggregate {
 
-    void initialize(UUID id);
+    void initialize();
 
-//    void replay(List<? extends DomainEvent<T>> events);
 }

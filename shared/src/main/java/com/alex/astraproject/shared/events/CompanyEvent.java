@@ -1,29 +1,35 @@
 package com.alex.astraproject.shared.events;
 
-import com.alex.astraproject.shared.eventTypes.CompanyEventType;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CompanyEvent {
+    private String id;
 
-    private long id;
+    private UUID companyId;
 
-    private UUID entityId;
+    private String type;
 
-    private Date creationDate;
+    private Map<String, Object> data;
 
-    private CompanyEventType type;
+    private int revision;
 
-    private Object data;
-
-    public CompanyEvent(CompanyEventType type, UUID entityId, Object data) {
-        this.type = type;
-        this.entityId = entityId;
-        this.data = data;
-        this.creationDate = new Date();
+    @Override
+    public String toString() {
+        return "CompanyEvent{" +
+                "id='" + id + '\'' +
+                ", companyId=" + companyId +
+                ", type='" + type + '\'' +
+                ", data=" + data +
+                ", revision=" + revision +
+                '}';
     }
-
 }
+

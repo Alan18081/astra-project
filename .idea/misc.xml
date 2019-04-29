@@ -9,11 +9,8 @@
         <option value="$PROJECT_DIR$/companies-service/pom.xml" />
         <option value="$PROJECT_DIR$/naming-server/pom.xml" />
         <option value="$PROJECT_DIR$/shared/pom.xml" />
-<<<<<<< HEAD
-        <option value="$PROJECT_DIR$/auth-gateway/pom.xml" />
-=======
         <option value="$PROJECT_DIR$/apigateway/pom.xml" />
->>>>>>> eba831657e4fab57a76e250c32db3623ac6d96a1
+        <option value="$PROJECT_DIR$/query-service/pom.xml" />
       </list>
     </option>
   </component>
