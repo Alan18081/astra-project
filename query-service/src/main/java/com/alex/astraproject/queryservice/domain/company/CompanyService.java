@@ -45,6 +45,6 @@ public class CompanyService {
     }
 
     public Mono<CompanyEntity> findOneByEmail(String email) {
-        return Mono.justOrEmpty(companyRepository.findByEmail(email));
+        return Mono.justOrEmpty(companyRepository.findFirstByEmail(email));
     }
 }

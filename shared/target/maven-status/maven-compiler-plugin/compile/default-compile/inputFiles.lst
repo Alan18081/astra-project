@@ -1,12 +1,15 @@
 /home/alex/IdeaProjects/astra-project-v2/shared/src/main/java/com/alex/astraproject/shared/eventTypes/EmployeeEventType.java
 /home/alex/IdeaProjects/astra-project-v2/shared/src/main/java/com/alex/astraproject/shared/commands/DeleteEmployeeCommand.java
+/home/alex/IdeaProjects/astra-project-v2/shared/src/main/java/com/alex/astraproject/shared/HttpError.java
 /home/alex/IdeaProjects/astra-project-v2/shared/src/main/java/com/alex/astraproject/shared/exceptions/companies/CompanyNotFoundException.java
 /home/alex/IdeaProjects/astra-project-v2/shared/src/main/java/com/alex/astraproject/shared/events/EmployeeEvent.java
 /home/alex/IdeaProjects/astra-project-v2/shared/src/main/java/com/alex/astraproject/shared/entities/Position.java
 /home/alex/IdeaProjects/astra-project-v2/shared/src/main/java/com/alex/astraproject/shared/dto/positions/FindManyPositionsDto.java
 /home/alex/IdeaProjects/astra-project-v2/shared/src/main/java/com/alex/astraproject/shared/SharedContext.java
 /home/alex/IdeaProjects/astra-project-v2/shared/src/main/java/com/alex/astraproject/shared/responses/PaginatedResponse.java
+/home/alex/IdeaProjects/astra-project-v2/shared/src/main/java/com/alex/astraproject/shared/exceptions/employees/EmployeeAlreadyExistsException.java
 /home/alex/IdeaProjects/astra-project-v2/shared/src/main/java/com/alex/astraproject/shared/security/SecurityConstants.java
+/home/alex/IdeaProjects/astra-project-v2/shared/src/main/java/com/alex/astraproject/shared/responses/HttpErrorResponse.java
 /home/alex/IdeaProjects/astra-project-v2/shared/src/main/java/com/alex/astraproject/shared/dto/companies/CompanyLoginDto.java
 /home/alex/IdeaProjects/astra-project-v2/shared/src/main/java/com/alex/astraproject/shared/DomainEvent.java
 /home/alex/IdeaProjects/astra-project-v2/shared/src/main/java/com/alex/astraproject/shared/dto/employees/CreateEmployeeDto.java

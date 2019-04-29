@@ -1,0 +1,31 @@
+app:
+  jwt:
+   secret: ThisIsSecretForJWTHS512SignatureAlgorithmThatMUSTHave512bitsKeySize
+   expiration: 28800
+server:
+  port: 5000
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: all
+          uri: lb://query-service
+          predicates:
+          - Path=/query-service/**
+          filters:
+          - JwtFilter
+        - id: companies_service
+          uri: lb://companies-service
+          predicates:
+          - Path=/companies-service/**
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka

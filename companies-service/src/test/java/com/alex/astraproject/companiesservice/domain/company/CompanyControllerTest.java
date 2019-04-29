@@ -1,13 +1,12 @@
 package com.alex.astraproject.companiesservice.domain.company;
 
-import com.alex.astraproject.companiesservice.clients.CompanyQueryClient;
+import com.alex.astraproject.companiesservice.clients.CompanyClient;
 import com.alex.astraproject.companiesservice.domain.company.commands.CreateCompanyCommand;
+import com.alex.astraproject.companiesservice.domain.company.commands.UpdateCompanyCommand;
 import com.alex.astraproject.companiesservice.domain.employee.EmployeeEventEntity;
 import com.alex.astraproject.companiesservice.domain.employee.commands.UpdateEmployeeCommand;
 import com.alex.astraproject.shared.entities.Company;
-import com.alex.astraproject.shared.entities.Employee;
 import com.alex.astraproject.shared.eventTypes.CompanyEventType;
-import com.alex.astraproject.shared.eventTypes.EmployeeEventType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,10 +26,11 @@ import reactor.test.StepVerifier;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.ArgumentMatchers.anyString;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -49,7 +49,7 @@ public class CompanyControllerTest {
     CompanyEventsRepository companyEventsRepository;
 
     @MockBean
-    CompanyQueryClient mockCompanyQueryClient;
+    CompanyClient mockCompanyQueryClient;
 
     @Before
     public void initData() {
@@ -69,6 +69,7 @@ public class CompanyControllerTest {
     }
     @Test
     public void createCompanyCommand() {
+	    Mockito.when(mockCompanyQueryClient.isCompanyExistsByEmail(anyString())).thenReturn(Mono.just(false));
       CreateCompanyCommand command = new CreateCompanyCommand("some-company", "some-company@gmail.com", "123456");
       client.post().uri("/companies")
         .body(Mono.just(command), CreateCompanyCommand.class)
@@ -78,21 +79,20 @@ public class CompanyControllerTest {
     }
 
     @Test
-    public void updateEmployeeCommand() {
+    public void updateCompanyCommand() {
         Company mockCompany = new Company();
         mockCompany.setId(companyId);
-        Mockito.when(mockCompanyQueryClient.findOneById(anyString())).thenReturn(mockCompany);
-        UpdateEmployeeCommand command = new UpdateEmployeeCommand();
-        command.setFirstName("Alex");
-        command.setLastName("Markus");
+        Mockito.when(mockCompanyQueryClient.findCompanyById(any(UUID.class))).thenReturn(Mono.just(mockCompany));
+        UpdateCompanyCommand command = new UpdateCompanyCommand();
+        command.setName("Some new company name");
 
-        client.patch().uri("/employees/{id}", companyId.toString())
-          .body(Mono.just(command), UpdateEmployeeCommand.class)
+        client.patch().uri("/companies/{id}", companyId.toString())
+          .body(Mono.just(command), UpdateCompanyCommand.class)
           .exchange()
           .expectStatus().isAccepted()
           .expectBody()
           .consumeWith(entityExchangeResult -> {
-              StepVerifier.create(companyEventsRepository.findAllByCompanyIdAndRevisionGreaterThan(companyId, 0))
+              StepVerifier.create(companyEventsRepository.findAll())
                 .expectSubscription()
                 .expectNextCount(4l)
                 .verifyComplete();
@@ -114,7 +114,10 @@ public class CompanyControllerTest {
 
     @Test
     public void deleteEmployeeCommand() {
-        client.delete().uri("/companies/{id}", companyId.toString())
+	    Company mockCompany = new Company();
+	    mockCompany.setId(companyId);
+	    Mockito.when(mockCompanyQueryClient.findCompanyById(any(UUID.class))).thenReturn(Mono.just(mockCompany));
+	    client.delete().uri("/companies/{id}", companyId.toString())
           .exchange()
           .expectStatus().isAccepted()
           .expectBody()

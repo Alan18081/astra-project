@@ -9,11 +9,8 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-@EnableZuulProxy
-@EnableDiscoveryClient
 @EnableFeignClients("com.alex.astraproject.authgateway")
 @EnableSharedModule
-@RibbonClient(name = "api-gateway")
 public class AuthGatewayApplication {
 
     public static void main(String[] args) {

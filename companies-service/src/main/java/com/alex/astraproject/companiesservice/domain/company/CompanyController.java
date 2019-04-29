@@ -36,26 +36,24 @@ public class CompanyController {
     @PatchMapping("{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Mono<Void> updateOne(@PathVariable UUID id, @RequestBody @Valid UpdateCompanyCommand command) {
-        command.setCompanyId(id);
-        return companyService
-          .updateCompanyCommand(command)
-          .flatMap(event -> {
-              companyMessagesService.sendUpdatedEvent(event);
-              return Mono.empty();
-          });
+      command.setCompanyId(id);
+      return companyService
+        .updateCompanyCommand(command)
+        .flatMap(event -> {
+            companyMessagesService.sendUpdatedEvent(event);
+            return Mono.empty();
+        });
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<Void> createOne(@RequestBody @Valid CreateCompanyCommand command) {
-      System.out.println("Some request body");
-        return companyService
-          .createCompanyCommand(command)
-          .flatMap(event -> {
-              companyMessagesService.sendCreatedEvent(event);
-            System.out.println("Heeefdfdsgffdhfdg");
-              return Mono.empty();
-          });
+      return companyService
+        .createCompanyCommand(command)
+        .flatMap(event -> {
+            companyMessagesService.sendCreatedEvent(event);
+            return Mono.empty();
+        });
     }
 
     @GetMapping("{id}/events")

@@ -33,7 +33,7 @@ public class CompaniesAuthServiceImpl implements CompaniesAuthService {
         Company company = companiesClient.findByEmail(dto.getEmail());
 
         String token = Jwts.builder()
-                .setSubject(company.getCorporateEmail())
+                .setSubject(company.getEmail())
                 .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, appProperties.getTokenSecret())
                 .compact();

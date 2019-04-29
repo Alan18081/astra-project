@@ -17,7 +17,7 @@ public class Company {
 
     private String name;
 
-    private String corporateEmail;
+    private String email;
 
     private List<Employee> employees;
 
