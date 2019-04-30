@@ -20,6 +20,8 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebFilter;
+import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -28,17 +30,12 @@ import java.util.List;
 
 @Component
 @Slf4j
-public class JwtFilter implements GatewayFilterFactory<FallbackHeadersGatewayFilterFactory.Config> {
+public class JwtFilter implements WebFilter {
 	
 	@Autowired
 	private CompaniesAuthService companiesAuthService;
 
-	@Override
-	public FallbackHeadersGatewayFilterFactory.Config newConfig() {
-		return new FallbackHeadersGatewayFilterFactory.Config();
-	}
-
-	@Override
+//	@Override
 	public GatewayFilter apply(FallbackHeadersGatewayFilterFactory.Config config) {
 		System.out.println("Some issue");
 		return (exchange, chain) -> {
@@ -97,4 +94,8 @@ public class JwtFilter implements GatewayFilterFactory<FallbackHeadersGatewayFil
 		return components[1].trim();
 	}
 
+	@Override
+	public Mono<Void> filter(ServerWebExchange serverWebExchange, WebFilterChain webFilterChain) {
+		return getA;
+	}
 }

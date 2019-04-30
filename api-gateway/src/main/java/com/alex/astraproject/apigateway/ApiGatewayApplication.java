@@ -1,4 +1,4 @@
-package com.alex.astraproject.authgateway;
+package com.alex.astraproject.apigateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,13 +7,13 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-@EnableFeignClients("com.alex.astraproject.authgateway")
-@EnableDiscoveryClient
 @EnableZuulProxy
-public class AuthGatewayApplication {
+@EnableDiscoveryClient
+@EnableFeignClients
+public class ApiGatewayApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AuthGatewayApplication.class, args);
+        SpringApplication.run(ApiGatewayApplication.class, args);
     }
 
 }
