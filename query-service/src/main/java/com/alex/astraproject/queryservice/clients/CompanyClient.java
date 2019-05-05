@@ -1,21 +1,25 @@
 package com.alex.astraproject.queryservice.clients;
 
+import com.alex.astraproject.shared.entities.Company;
 import com.alex.astraproject.shared.events.CompanyEvent;
-import org.springframework.cloud.netflix.ribbon.RibbonClient;
-import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import reactor.core.publisher.Flux;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @Component
-@FeignClient(name = "companies-service")
-@RibbonClient
-@RequestMapping("/companies")
-public interface CompanyClient {
+public class CompanyClient {
 
-	@GetMapping("/{id}/events?revisionFrom={revisionFrom}")
-	Flux<CompanyEvent> findManyEvents(@PathVariable("id") String id, @PathVariable("revisionFrom") int revisionFrom);
+	@Autowired
+	private WebClient.Builder client;
 
+	public Mono<CompanyEvent> findCompanyEventsById(UUID id, int revision) {
+		return client.build()
+			.get()
+			.uri("http://query-service/companies/{id}/events?revisionFrom={revision}", id, revision)
+			.retrieve()
+			.bodyToMono(CompanyEvent.class);
+	}
 }

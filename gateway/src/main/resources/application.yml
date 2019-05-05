@@ -1,7 +1,7 @@
 app:
   jwt:
    secret: ThisIsSecretForJWTHS512SignatureAlgorithmThatMUSTHave512bitsKeySize
-   expiration: 28800
+   expiration: 2880000
 server:
   port: 5000
 spring:
@@ -18,8 +18,6 @@ spring:
           uri: lb://query-service
           predicates:
           - Path=/query-service/**
-          filters:
-          - JwtFilter
         - id: companies_service
           uri: lb://companies-service
           predicates:

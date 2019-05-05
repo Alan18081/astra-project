@@ -13,7 +13,7 @@ import java.util.UUID;
 public class CompanyEvent {
     private String id;
 
-    private UUID companyId;
+    private String companyId;
 
     private String type;
 

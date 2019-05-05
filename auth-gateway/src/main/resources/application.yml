@@ -1,8 +1,0 @@
-server:
-  port: 3500
-eureka:
-  client:
-    register-with-eureka: true
-spring:
-  application:
-    name: api-gateway

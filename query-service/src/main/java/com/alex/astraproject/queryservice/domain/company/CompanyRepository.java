@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface CompanyRepository extends PagingAndSortingRepository<CompanyEntity, UUID> {
+public interface CompanyRepository extends PagingAndSortingRepository<CompanyEntity, String> {
 
 	Optional<CompanyEntity> findFirstByEmail(String email);
 

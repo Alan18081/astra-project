@@ -39,6 +39,11 @@ public class JwtServiceImpl implements JwtService {
 			.getBody();
 	}
 
+	private Boolean isTokenExpired(String token) {
+		final Date expiration = getExpirationDateFromToken(token);
+		return expiration.before(new Date());
+	}
+
 	@Override
 	public String generateToken(Object user) {
 		Map<String, Object> claims = new HashMap<>();
@@ -63,6 +68,6 @@ public class JwtServiceImpl implements JwtService {
 
 	@Override
 	public boolean validateToken(String token) {
-		return false;
+		return !isTokenExpired(token);
 	}
 }

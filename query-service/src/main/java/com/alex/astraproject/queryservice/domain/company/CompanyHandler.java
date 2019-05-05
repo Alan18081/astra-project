@@ -19,13 +19,12 @@ public class CompanyHandler {
 
     @StreamListener(CompanyEventType.CREATED)
     public void onCompanyCreated(@Payload CompanyEvent companyEvent) {
-        log.info("Company created: " + companyEvent);
-        companyService.createCompany(companyEvent);
+        companyService.createOne(companyEvent);
     }
 
     @StreamListener(CompanyEventType.UPDATED)
     public void onCompanyUpdated(@Payload CompanyEvent companyEvent) {
-        companyService.updateCompany(companyEvent);
+        companyService.updateById(companyEvent);
     }
 
 }

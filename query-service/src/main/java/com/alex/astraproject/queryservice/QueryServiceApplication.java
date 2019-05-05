@@ -10,7 +10,6 @@ import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import reactivefeign.spring.config.EnableReactiveFeignClients;
 
 @SpringBootApplication
-@EnableFeignClients
 @EnableDiscoveryClient
 @EnableSharedModule
 @EnableNeo4jRepositories(basePackages = "com.alex.astraproject.queryservice.domain")

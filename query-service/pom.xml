@@ -28,6 +28,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-neo4j</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.neo4j/neo4j-kernel -->
+        <!--<dependency>-->
+            <!--<groupId>org.neo4j</groupId>-->
+            <!--<artifactId>neo4j-kernel</artifactId>-->
+            <!--<version>3.5.5</version>-->
+        <!--</dependency>-->
+
         <dependency>
             <groupId>com.alex.astraproject</groupId>
             <artifactId>shared</artifactId>

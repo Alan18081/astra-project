@@ -1,27 +1,26 @@
 package com.alex.astraproject.shared.events;
 
 import com.alex.astraproject.shared.DomainEvent;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Map;
 import java.util.UUID;
 
 @Getter
-public class EmployeeEvent extends DomainEvent<String> {
+@NoArgsConstructor
+@AllArgsConstructor
+public class EmployeeEvent {
 
     private String id;
 
-    private UUID employeeId;
+    private String employeeId;
 
     private String type;
 
-    private Object data;
+    private Map<String, Object> data;
 
     private int revision;
-
-    public EmployeeEvent(UUID employeeId, Object data, String type, int revision) {
-        super(employeeId);
-        this.employeeId = employeeId;
-        this.data = data;
-        this.type = type;
-        this.revision = revision;
-    }
 }

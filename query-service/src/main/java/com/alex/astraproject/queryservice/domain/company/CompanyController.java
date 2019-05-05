@@ -24,6 +24,17 @@ public class CompanyController {
         return companyService.findMany();
     }
 
+    @GetMapping("{id}")
+    public Mono<ResponseEntity<CompanyEntity>> findOneById(@PathVariable String id) {
+        return companyService.findById(id)
+//          .doOnNext(companyEntity -> {
+//              System.out.println(companyEntity);
+//          })
+          .map(ResponseEntity::ok)
+          .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+
     @GetMapping("/email/{email}")
     public Mono<ResponseEntity<CompanyEntity>> findOneByEmail(@PathVariable String email) {
         return companyService.findOneByEmail(email)
@@ -31,11 +42,6 @@ public class CompanyController {
           .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/{id}")
-    public Mono<ResponseEntity<CompanyEntity>> findOneById(@PathVariable UUID id) {
-        return companyService.findOneById(id)
-          .map(ResponseEntity::ok)
-          .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
+
 
 }

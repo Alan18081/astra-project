@@ -1,50 +1,20 @@
 package com.alex.astraproject.queryservice.domain.company;
 
-import com.alex.astraproject.queryservice.clients.CompanyClient;
+
+import com.alex.astraproject.shared.dto.companies.FindCompanyByIdDto;
 import com.alex.astraproject.shared.events.CompanyEvent;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.alex.astraproject.shared.services.Mutable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.Arrays;
 import java.util.UUID;
 
-@Service
-public class CompanyService {
+public interface CompanyService extends Mutable<CompanyEvent> {
 
-    @Autowired
-    private CompanyRepository companyRepository;
+	Mono<CompanyEntity> findById(String id);
 
-    @Autowired
-    private CompanyClient companyClient;
+	Mono<CompanyEntity> findOneByEmail(String email);
 
-    public Flux<CompanyEntity> findMany() {
-        return Flux.fromIterable(companyRepository.findAll());
-    }
+	Flux<CompanyEntity> findMany();
 
-    public void createCompany(CompanyEvent event) {
-        CompanyEntity companyEntity = new CompanyEntity();
-        companyEntity.initialize();
-        companyEntity.replay(Arrays.asList(event));
-        companyRepository.save(companyEntity);
-    }
-
-    public void updateCompany(CompanyEvent event) {
-        Mono<CompanyEntity> companyEntityMono = Mono.justOrEmpty(companyRepository.findById(event.getCompanyId()));
-        companyEntityMono
-            .subscribe(companyEntity -> companyClient
-              .findManyEvents(companyEntity.getId().toString(), companyEntity.getRevision())
-              .doOnNext(companyEntity::applyEvent)
-              .thenMany(other -> companyRepository.save(companyEntity))
-            );
-    }
-
-    public Mono<CompanyEntity> findOneById(UUID id) {
-        return Mono.justOrEmpty(companyRepository.findById(id));
-    }
-
-    public Mono<CompanyEntity> findOneByEmail(String email) {
-        return Mono.justOrEmpty(companyRepository.findFirstByEmail(email));
-    }
 }

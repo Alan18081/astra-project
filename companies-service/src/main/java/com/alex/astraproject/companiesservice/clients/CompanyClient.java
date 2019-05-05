@@ -28,7 +28,7 @@ public class CompanyClient {
 
 	public Mono<Company> findCompanyById(UUID id) {
 		return client.build().get().uri("http://query-service/companies/{id}", id)
-			.retrieve()
-			.bodyToMono(Company.class);
+			.exchange()
+			.flatMap(clientResponse -> clientResponse.bodyToMono(Company.class));
 	}
 }

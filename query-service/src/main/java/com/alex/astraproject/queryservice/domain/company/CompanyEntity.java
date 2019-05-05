@@ -1,28 +1,30 @@
 package com.alex.astraproject.queryservice.domain.company;
 
-import com.alex.astraproject.shared.Aggregate;
 import com.alex.astraproject.shared.eventTypes.CompanyEventType;
 import com.alex.astraproject.shared.events.CompanyEvent;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.beanutils.BeanUtils;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
+import org.neo4j.ogm.annotation.Relationship;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @NodeEntity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CompanyEntity implements Aggregate {
+@Builder
+public class CompanyEntity {
 
     @Id
-    private UUID id;
+    private String id;
 
     @Property
     private String name;
@@ -37,15 +39,16 @@ public class CompanyEntity implements Aggregate {
     private long numberOfEmployees;
 
     @Property
-    private long deletedAt;
+    private Date deletedAt;
 
     @Property
     private int revision;
 
-    @Override
-    public void initialize() {
-        this.id = UUID.randomUUID();
-    }
+    @Property
+    private String companyId;
+
+    @Relationship(type = "WORK_IN")
+    private CompanyEntity company;
 
     public void replay(List<CompanyEvent> events) {
         events.forEach(this::applyEvent);
@@ -54,10 +57,13 @@ public class CompanyEntity implements Aggregate {
     public void applyEvent(CompanyEvent event) {
         switch (event.getType()) {
             case CompanyEventType.CREATED: {
+	            System.out.println(event);
+                this.id = event.getCompanyId().toString();
                 this.name = (String) event.getData().get("name");
                 this.email = (String) event.getData().get("email");
                 this.password = (String) event.getData().get("password");
 
+                this.revision = event.getRevision();
                 break;
             }
             case CompanyEventType.UPDATED: {
@@ -68,10 +74,13 @@ public class CompanyEntity implements Aggregate {
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 }
+
+                this.revision = event.getRevision();
                 break;
             }
             case CompanyEventType.DELETED: {
-                this.deletedAt = (Long) event.getData().get("deletedAt");
+                this.deletedAt = (Date) event.getData().get("deletedAt");
+                this.revision = event.getRevision();
             }
         }
     }
