@@ -3,6 +3,8 @@ package com.alex.astraproject.companiesservice.domain.company;
 import com.alex.astraproject.companiesservice.domain.company.commands.CreateCompanyCommand;
 import com.alex.astraproject.companiesservice.domain.company.commands.DeleteCompanyCommand;
 import com.alex.astraproject.companiesservice.domain.company.commands.UpdateCompanyCommand;
+import com.alex.astraproject.companiesservice.domain.company.dto.GetEventsByRevisionDto;
+import com.alex.astraproject.companiesservice.domain.company.dto.GetEventsByTimestampDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,21 +12,22 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
-import java.util.UUID;
+import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/companies")
 public class CompanyController {
 
     @Autowired
-    private CompanyService companyService;
+    private CompanyServiceImpl companyService;
 
     @Autowired
     private CompanyMessagesService companyMessagesService;
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Mono<Void> deleteOne(@PathVariable UUID id) {
+    public Mono<Void> deleteOne(@PathVariable String id) {
         return companyService
           .deleteCompanyCommand(new DeleteCompanyCommand(id))
           .flatMap(event -> {
@@ -35,7 +38,7 @@ public class CompanyController {
 
     @PatchMapping("{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Mono<Void> updateOne(@PathVariable UUID id, @RequestBody @Valid UpdateCompanyCommand command) {
+    public Mono<Void> updateOne(@PathVariable String id, @RequestBody @Valid UpdateCompanyCommand command) {
       command.setCompanyId(id);
       return companyService
         .updateCompanyCommand(command)
@@ -56,9 +59,20 @@ public class CompanyController {
         });
     }
 
-    @GetMapping("{id}/events")
-    public Flux<CompanyEventEntity> findManyEvents(@PathVariable UUID id, @RequestParam("revisionFrom") int revisionFrom) {
-        return companyService.findManyEventsById(id, revisionFrom);
+    @GetMapping("{id}/events/revision")
+    public Flux<CompanyEventEntity> getEventsByRevision(
+      @PathVariable @NotBlank String id,
+      GetEventsByRevisionDto dto
+    ) {
+        dto.setId(id);
+        return companyService.getEventsByRevision(dto);
     }
 
+//  @GetMapping("{id}/events/revision")
+//  public Flux<CompanyEventEntity> getEventsByDate(
+//    @PathVariable @NotBlank String id,
+//    GetEventsByRevisionDto dto
+//  ) {
+//      return companyService.getEventsByTimestamp(dto);
+//  }
 }

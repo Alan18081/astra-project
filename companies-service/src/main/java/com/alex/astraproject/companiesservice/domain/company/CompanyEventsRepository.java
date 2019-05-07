@@ -1,18 +1,32 @@
 package com.alex.astraproject.companiesservice.domain.company;
 
-import com.alex.astraproject.companiesservice.domain.employee.EmployeeEventEntity;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.UUID;
 
 @Repository
-public interface CompanyEventsRepository extends ReactiveMongoRepository<CompanyEventEntity, UUID> {
+public interface CompanyEventsRepository extends
+	ReactiveMongoRepository<CompanyEventEntity, String>,
+	CustomCompanyEventsRepository
+{
+	Flux<CompanyEventEntity> findAllByCompanyId(
+		String companyId, Pageable pageable
+	);
 
-    Mono<EmployeeEventEntity> findFirstByCompanyIdOrderByRevisionDesc(UUID companyId);
+  Mono<CompanyEventEntity> findFirstByCompanyIdOrderByRevisionDesc(
+  	String companyId
+  );
 
-    Flux<CompanyEventEntity> findAllByCompanyIdAndRevisionGreaterThan(UUID companyId, int revision);
+	Flux<CompanyEventEntity> findAllByCompanyIdAndRevisionGreaterThan(
+		String companyId, long revisionFrom, Pageable pageable
+	);
 
+
+  @Query("{ 'revision': { $gt: ?0, $lt: ?1 }}")
+  Flux<CompanyEventEntity> findAllEvents(Long revisionFrom, Long revisionTo);
 }

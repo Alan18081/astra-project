@@ -72,11 +72,11 @@ public class EmployeeControllerTest {
 
     @Test
     public void createEmployeeCommand() {
-    	UUID mockCompanyId = UUID.randomUUID();
+    	String mockCompanyId = UUID.randomUUID().toString();
     	Company mockCompany = new Company();
     	mockCompany.setId(mockCompanyId);
 
-	    Mockito.when(companyQueryClient.findCompanyById(any(UUID.class))).thenReturn(Mono.just(mockCompany));
+	    Mockito.when(companyQueryClient.findCompanyById(anyString())).thenReturn(Mono.just(mockCompany));
 	    Mockito.when(mockEmployeeQueryClient.isEmployeeExists(anyString())).thenReturn(Mono.just(false));
 
       CreateEmployeeCommand command = new CreateEmployeeCommand("Alan", "Morgan", "morgan@gmail.com", "123456", mockCompanyId);

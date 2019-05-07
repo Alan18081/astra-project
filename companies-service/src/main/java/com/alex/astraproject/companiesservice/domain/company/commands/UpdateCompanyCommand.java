@@ -8,7 +8,7 @@ import java.util.UUID;
 @Data
 public class UpdateCompanyCommand {
 
-    private UUID companyId;
+    private String companyId;
 
     private String name;
 

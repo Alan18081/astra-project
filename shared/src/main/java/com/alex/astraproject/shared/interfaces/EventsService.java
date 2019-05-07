@@ -1,4 +1,13 @@
 package com.alex.astraproject.shared.interfaces;
 
-public interface EventsService {
+import com.alex.astraproject.shared.dto.companies.PaginationDto;
+import reactor.core.publisher.Flux;
+
+public interface EventsService<T> {
+
+	Flux<T> getEvents(PaginationDto dto);
+
+	Flux<T> getEventsByRevision(PaginationDto dto);
+
+	Flux<T> getEventsByTimestamp(PaginationDto dto);
 }

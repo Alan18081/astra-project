@@ -9,6 +9,7 @@
         <module name="companies-service" />
         <module name="gateway" />
         <module name="naming-server" />
+        <module name="projects-service" />
         <module name="query-service" />
         <module name="shared" />
       </profile>
@@ -19,6 +20,7 @@
       <module name="companies-service" target="1.8" />
       <module name="gateway" target="1.8" />
       <module name="naming-server" target="1.8" />
+      <module name="projects-service" target="1.8" />
       <module name="query-service" target="1.8" />
       <module name="shared" target="1.8" />
     </bytecodeTargetLevel>

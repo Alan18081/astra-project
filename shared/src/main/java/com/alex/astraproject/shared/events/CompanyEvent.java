@@ -19,7 +19,7 @@ public class CompanyEvent {
 
     private Map<String, Object> data;
 
-    private int revision;
+    private long revision;
 
     @Override
     public String toString() {

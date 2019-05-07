@@ -42,7 +42,7 @@ public class CompanyEntity {
     private Date deletedAt;
 
     @Property
-    private int revision;
+    private long revision;
 
     @Property
     private String companyId;
@@ -58,7 +58,7 @@ public class CompanyEntity {
         switch (event.getType()) {
             case CompanyEventType.CREATED: {
 	            System.out.println(event);
-                this.id = event.getCompanyId().toString();
+                this.id = event.getCompanyId();
                 this.name = (String) event.getData().get("name");
                 this.email = (String) event.getData().get("email");
                 this.password = (String) event.getData().get("password");

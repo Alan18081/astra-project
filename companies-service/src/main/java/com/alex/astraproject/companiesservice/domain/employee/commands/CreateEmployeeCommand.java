@@ -32,6 +32,6 @@ public class CreateEmployeeCommand {
     private String password;
 
     @NotNull
-    private UUID companyId;
+    private String companyId;
 
 }

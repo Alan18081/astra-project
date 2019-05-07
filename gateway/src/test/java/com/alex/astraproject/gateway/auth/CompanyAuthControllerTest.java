@@ -39,7 +39,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 @DirtiesContext
 public class CompanyAuthControllerTest {
 	private Company company = new Company(
-		UUID.randomUUID(), "Some company", "company@gmail.com", new ArrayList<>(), "dgfdgfg"
+		UUID.randomUUID().toString(), "Some company", "company@gmail.com", new ArrayList<>(), "dgfdgfg"
 	);
 
 	@Autowired

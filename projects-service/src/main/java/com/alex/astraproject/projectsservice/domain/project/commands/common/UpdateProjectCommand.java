@@ -1,4 +1,4 @@
-package com.alex.astraproject.projectsservice.domain.project.commands;
+package com.alex.astraproject.projectsservice.domain.project.commands.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +15,6 @@ public class UpdateProjectCommand {
     private String name;
 
     @NotNull
-    private String companyId;
+    private String description;
 
 }

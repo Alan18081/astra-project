@@ -29,7 +29,7 @@ public class EmployeeEventEntity {
     private Object data;
 
     @Field
-    private int revision;
+    private long revision;
 
     @Override
     public String toString() {

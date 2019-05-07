@@ -15,7 +15,7 @@ public class CompanyClient {
 	@Autowired
 	private WebClient.Builder client;
 
-	public Mono<CompanyEvent> findCompanyEventsById(UUID id, int revision) {
+	public Mono<CompanyEvent> findCompanyEventsById(UUID id, long revision) {
 		return client.build()
 			.get()
 			.uri("http://query-service/companies/{id}/events?revisionFrom={revision}", id, revision)

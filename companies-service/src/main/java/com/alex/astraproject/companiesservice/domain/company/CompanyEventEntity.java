@@ -1,6 +1,7 @@
 package com.alex.astraproject.companiesservice.domain.company;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class CompanyEventEntity {
 
     @Id
@@ -20,7 +22,7 @@ public class CompanyEventEntity {
     private String id;
 
     @Field
-    private UUID companyId;
+    private String companyId;
 
     @Field
     private String type;
@@ -30,4 +32,7 @@ public class CompanyEventEntity {
 
     @Field
     private int revision;
+
+    @Field
+    private long timestamp;
 }

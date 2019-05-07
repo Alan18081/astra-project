@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/companies-service/companies-service.iml" filepath="$PROJECT_DIR$/companies-service/companies-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/gateway/gateway.iml" filepath="$PROJECT_DIR$/gateway/gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/naming-server/naming-server.iml" filepath="$PROJECT_DIR$/naming-server/naming-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/projects-service/projects-service.iml" filepath="$PROJECT_DIR$/projects-service/projects-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/query-service/query-service.iml" filepath="$PROJECT_DIR$/query-service/query-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/shared/shared.iml" filepath="$PROJECT_DIR$/shared/shared.iml" />
     </modules>

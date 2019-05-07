@@ -1,4 +1,4 @@
-package com.alex.astraproject.projectsservice.domain.project.commands;
+package com.alex.astraproject.projectsservice.domain.project.commands.participants;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,5 +16,8 @@ public class AddParticipantCommand {
 
    @NotNull
    private String employeeId;
+
+   @NotNull
+   private String positionId;
 
 }

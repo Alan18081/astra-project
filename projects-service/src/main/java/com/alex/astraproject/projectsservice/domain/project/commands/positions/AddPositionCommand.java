@@ -1,4 +1,4 @@
-package com.alex.astraproject.projectsservice.domain.project.commands.participants;
+package com.alex.astraproject.projectsservice.domain.project.commands.positions;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,12 +9,12 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddParticipantCommand {
+public class AddPositionCommand {
 
    @NotNull
    private String projectId;
 
    @NotNull
-   private String employeeId;
+   private String positionId;
 
 }

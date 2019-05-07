@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StopProjectCommand {
+public class ResumeProjectCommand {
 
    @NotNull
    private String id;

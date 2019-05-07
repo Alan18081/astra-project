@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
@@ -25,6 +26,7 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,7 +41,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 @ActiveProfiles("test")
 @DirtiesContext
 public class CompanyControllerTest {
-    UUID companyId = UUID.randomUUID();
+    String companyId = UUID.randomUUID().toString();
     List<CompanyEventEntity> list;
 
     @Autowired
@@ -54,9 +56,9 @@ public class CompanyControllerTest {
     @Before
     public void initData() {
         this.list = Arrays.asList(
-          new CompanyEventEntity(null, companyId, CompanyEventType.CREATED, null, 1),
-          new CompanyEventEntity(null, companyId, CompanyEventType.UPDATED, null, 2),
-          new CompanyEventEntity(null, companyId, CompanyEventType.DELETED, null, 3)
+          new CompanyEventEntity(null, companyId, CompanyEventType.CREATED, null, 1, new Date().getTime()),
+          new CompanyEventEntity(null, companyId, CompanyEventType.UPDATED, null, 2, new Date().getTime()),
+          new CompanyEventEntity(null, companyId, CompanyEventType.DELETED, null, 3, new Date().getTime())
         );
 
         companyEventsRepository.deleteAll()
@@ -82,11 +84,11 @@ public class CompanyControllerTest {
     public void updateCompanyCommand() {
         Company mockCompany = new Company();
         mockCompany.setId(companyId);
-        Mockito.when(mockCompanyQueryClient.findCompanyById(any(UUID.class))).thenReturn(Mono.just(mockCompany));
+        Mockito.when(mockCompanyQueryClient.findCompanyById(anyString())).thenReturn(Mono.just(mockCompany));
         UpdateCompanyCommand command = new UpdateCompanyCommand();
         command.setName("Some new company name");
 
-        client.patch().uri("/companies/{id}", companyId.toString())
+        client.patch().uri("/companies/{id}", companyId)
           .body(Mono.just(command), UpdateCompanyCommand.class)
           .exchange()
           .expectStatus().isAccepted()
@@ -116,13 +118,14 @@ public class CompanyControllerTest {
     public void deleteEmployeeCommand() {
 	    Company mockCompany = new Company();
 	    mockCompany.setId(companyId);
-	    Mockito.when(mockCompanyQueryClient.findCompanyById(any(UUID.class))).thenReturn(Mono.just(mockCompany));
-	    client.delete().uri("/companies/{id}", companyId.toString())
+	    Mockito.when(mockCompanyQueryClient.findCompanyById(anyString())).thenReturn(Mono.just(mockCompany));
+	    client.delete().uri("/companies/{id}", companyId)
           .exchange()
           .expectStatus().isAccepted()
           .expectBody()
           .consumeWith(entityExchangeResult -> {
-              StepVerifier.create(companyEventsRepository.findAllByCompanyIdAndRevisionGreaterThan(companyId, 0))
+              StepVerifier.create(companyEventsRepository.findAllByCompanyIdAndRevisionGreaterThan(
+              	companyId, 0, PageRequest.of(0, 100)))
                 .expectSubscription()
                 .expectNextCount(4l)
                 .verifyComplete();

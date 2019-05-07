@@ -11,5 +11,5 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeleteCompanyCommand {
-    private UUID companyId;
+    private String companyId;
 }
