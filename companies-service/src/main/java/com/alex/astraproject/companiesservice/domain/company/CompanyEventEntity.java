@@ -1,21 +1,16 @@
 package com.alex.astraproject.companiesservice.domain.company;
 
-import lombok.AllArgsConstructor;
+import com.alex.astraproject.shared.BaseEventEntity;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.UUID;
 
 @Document
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class CompanyEventEntity {
+public class CompanyEventEntity extends BaseEventEntity {
 
     @Id
     @Field
@@ -27,12 +22,11 @@ public class CompanyEventEntity {
     @Field
     private String type;
 
-    @Field
-    private Object data;
-
-    @Field
-    private int revision;
-
-    @Field
-    private long timestamp;
+    @Builder
+    public CompanyEventEntity(String id, String companyId, String type, Object data, long revision, long timestamp) {
+        super(data, revision, timestamp);
+        this.id = id;
+        this.companyId = companyId;
+        this.type = type;
+    }
 }

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RemoveProjectCommand {
+public class DeleteProjectCommand {
 
    @NotNull
    private String id;

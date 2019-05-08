@@ -3,8 +3,7 @@ package com.alex.astraproject.companiesservice.domain.company;
 import com.alex.astraproject.companiesservice.domain.company.commands.CreateCompanyCommand;
 import com.alex.astraproject.companiesservice.domain.company.commands.DeleteCompanyCommand;
 import com.alex.astraproject.companiesservice.domain.company.commands.UpdateCompanyCommand;
-import com.alex.astraproject.companiesservice.domain.company.dto.GetEventsByRevisionDto;
-import com.alex.astraproject.companiesservice.domain.company.dto.GetEventsByTimestampDto;
+import com.alex.astraproject.shared.dto.common.GetEventsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,14 +12,13 @@ import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/companies")
 public class CompanyController {
 
     @Autowired
-    private CompanyServiceImpl companyService;
+    private CompanyService companyService;
 
     @Autowired
     private CompanyMessagesService companyMessagesService;
@@ -59,20 +57,12 @@ public class CompanyController {
         });
     }
 
-    @GetMapping("{id}/events/revision")
-    public Flux<CompanyEventEntity> getEventsByRevision(
-      @PathVariable @NotBlank String id,
-      GetEventsByRevisionDto dto
-    ) {
-        dto.setId(id);
-        return companyService.getEventsByRevision(dto);
-    }
-
-//  @GetMapping("{id}/events/revision")
-//  public Flux<CompanyEventEntity> getEventsByDate(
-//    @PathVariable @NotBlank String id,
-//    GetEventsByRevisionDto dto
-//  ) {
-//      return companyService.getEventsByTimestamp(dto);
-//  }
+  @GetMapping("{id}/events")
+  public Flux<CompanyEventEntity> getEventsByDate(
+    @PathVariable @NotBlank String id,
+    GetEventsDto dto
+  ) {
+      dto.setEntityId(id);
+      return companyService.getEvents(dto);
+  }
 }

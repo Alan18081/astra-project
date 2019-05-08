@@ -2,21 +2,26 @@ package com.alex.astraproject.projectsservice.domain.project;
 
 import com.alex.astraproject.projectsservice.domain.project.commands.common.*;
 import com.alex.astraproject.projectsservice.domain.project.commands.participants.AddParticipantCommand;
+import com.alex.astraproject.projectsservice.domain.project.commands.participants.RemoveParticipantCommand;
+import com.alex.astraproject.shared.interfaces.EventsService;
 import reactor.core.publisher.Mono;
 
-public interface ProjectService {
+public interface ProjectEventsService extends EventsService<ProjectEventEntity> {
 
-	Mono<ProjectEvent> createOne(CreateProjectCommand command);
+	Mono<ProjectEventEntity> createOne(CreateProjectCommand command);
 
-	Mono<ProjectEvent> updateOne(UpdateProjectCommand command);
+	Mono<ProjectEventEntity> updateOne(UpdateProjectCommand command);
 
-	Mono<ProjectEvent> removeOne(RemoveProjectCommand command);
+	Mono<ProjectEventEntity> deleteOne(DeleteProjectCommand command);
 
-	Mono<ProjectEvent> completeOne(CompleteProjectCommand command);
+	Mono<ProjectEventEntity> completeOne(CompleteProjectCommand command);
 
-	Mono<ProjectEvent> stopOne(StopProjectCommand command);
+	Mono<ProjectEventEntity> stopOne(StopProjectCommand command);
 
-	Mono<ProjectEvent> resumeOne(ResumeProjectCommand command);
+	Mono<ProjectEventEntity> resumeOne(ResumeProjectCommand command);
 
-	Mono<ProjectEvent> addParticipant(AddParticipantCommand command);
+	Mono<ProjectEventEntity> addParticipant(AddParticipantCommand command);
+
+	Mono<ProjectEventEntity> removeParticipant(RemoveParticipantCommand command);
+
 }

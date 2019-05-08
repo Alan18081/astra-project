@@ -15,12 +15,11 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactivefeign.spring.config.EnableReactiveFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableSharedModule
-@EnableReactiveMongoRepositories
+@EnableReactiveMongoRepositories(repositoryImplementationPostfix = "")
 @RibbonClient(name = "companies-service")
 public class CompaniesServiceApplication {
 

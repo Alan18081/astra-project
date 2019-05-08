@@ -1,10 +1,14 @@
-package com.alex.astraproject.companiesservice.domain.employee;
+package com.alex.astraproject.companiesservice.domain.employee.impl;
 
 import com.alex.astraproject.companiesservice.clients.CompanyClient;
 import com.alex.astraproject.companiesservice.clients.EmployeeClient;
+import com.alex.astraproject.companiesservice.domain.employee.EmployeeEventEntity;
+import com.alex.astraproject.companiesservice.domain.employee.EmployeeEventsRepository;
+import com.alex.astraproject.companiesservice.domain.employee.EmployeeService;
 import com.alex.astraproject.companiesservice.domain.employee.commands.CreateEmployeeCommand;
 import com.alex.astraproject.companiesservice.domain.employee.commands.DeleteEmployeeCommand;
 import com.alex.astraproject.companiesservice.domain.employee.commands.UpdateEmployeeCommand;
+import com.alex.astraproject.shared.dto.common.GetEventsDto;
 import com.alex.astraproject.shared.eventTypes.EmployeeEventType;
 import com.alex.astraproject.shared.exceptions.common.NotFoundException;
 import com.alex.astraproject.shared.exceptions.employees.EmployeeAlreadyExistsException;
@@ -19,7 +23,7 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @Service
-public class EmployeesService {
+public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private EmployeeEventsRepository employeeEventsRepository;
@@ -91,4 +95,8 @@ public class EmployeesService {
         });
     }
 
+  @Override
+  public Flux<EmployeeEventEntity> getEvents(GetEventsDto dto) {
+    return null;
+  }
 }

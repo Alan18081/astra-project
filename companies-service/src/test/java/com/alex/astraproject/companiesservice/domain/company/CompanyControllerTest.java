@@ -56,9 +56,30 @@ public class CompanyControllerTest {
     @Before
     public void initData() {
         this.list = Arrays.asList(
-          new CompanyEventEntity(null, companyId, CompanyEventType.CREATED, null, 1, new Date().getTime()),
-          new CompanyEventEntity(null, companyId, CompanyEventType.UPDATED, null, 2, new Date().getTime()),
-          new CompanyEventEntity(null, companyId, CompanyEventType.DELETED, null, 3, new Date().getTime())
+          CompanyEventEntity.builder()
+            .id(null)
+            .companyId(companyId)
+            .type(CompanyEventType.CREATED)
+            .data(null)
+            .revision(1)
+            .timestamp(new Date().getTime())
+            .build(),
+          CompanyEventEntity.builder()
+            .id(null)
+            .companyId(companyId)
+            .type(CompanyEventType.UPDATED)
+            .data(null)
+            .revision(2)
+            .timestamp(new Date().getTime())
+            .build(),
+          CompanyEventEntity.builder()
+            .id(null)
+            .companyId(companyId)
+            .type(CompanyEventType.DELETED)
+            .data(null)
+            .revision(3)
+            .timestamp(new Date().getTime())
+            .build()
         );
 
         companyEventsRepository.deleteAll()

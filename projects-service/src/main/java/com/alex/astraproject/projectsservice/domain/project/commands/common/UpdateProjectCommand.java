@@ -11,6 +11,8 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class UpdateProjectCommand {
 
+    private String id;
+
     @NotNull
     private String name;
 

@@ -13,6 +13,9 @@ public class Errors {
     public static final String EMPLOYEE_WITH_EMAIL_ALREADY_EXISTS = "Employee with provided email already exists";
     public static final String POSITION_NOT_FOUND_BY_ID = "Position with provided ID is not found";
 
+    public static final String PROJECT_NOT_FOUND_BY_ID = "Project with provided ID is not found";
+
+
     public static final String AUTH_HEADER_NOT_FOUND = "Authorization header is missing";
     public static final String AUTH_HEADER_CONTENT_NOT_FOUND = "Authorization header content is missing";
     public static final String AUTH_HEADER_BEARER_NOT_FOUND = "Bearer prefix is needed";

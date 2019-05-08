@@ -1,3 +1,4 @@
+
 app:
   jwt:
    secret: ThisIsSecretForJWTHS512SignatureAlgorithmThatMUSTHave512bitsKeySize
@@ -5,6 +6,8 @@ app:
 server:
   port: 5000
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: gateway
   cloud:
