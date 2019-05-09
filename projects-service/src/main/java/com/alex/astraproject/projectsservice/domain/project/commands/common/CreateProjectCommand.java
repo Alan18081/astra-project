@@ -14,6 +14,8 @@ public class CreateProjectCommand {
     @NotNull
     private String name;
 
+    private String description;
+
     @NotNull
     private String companyId;
 

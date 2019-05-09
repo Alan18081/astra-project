@@ -7,7 +7,9 @@ public class ProjectEventType {
     public static final String STOPPED = "[Project] Stopped";
     public static final String RESUMED = "[Project] Resumed";
     public static final String COMPLETED = "[Project] Completed";
-    public static final String ADDED_PARTICIPANT = "[Project] Added Participant";
-    public static final String REMOVED_PARTICIPANT = "[Project] Removed Participant";
-    public static final String CHANGED_PARTICIPANT_POSITION = "[Project] Changed Participant's Position";
+    public static final String ADDED_EMPLOYEE = "[Project] Added Employee";
+    public static final String REMOVED_EMPLOYEE = "[Project] Removed Employee";
+    public static final String CHANGED_EMPLOYEE_POSITION = "[Project] Changed Employee's Position";
+	public static final String ADDED_POSITION = "[Project] Added Position";
+	public static final String REMOVED_POSITION = "[Project] Removed Position";
 }

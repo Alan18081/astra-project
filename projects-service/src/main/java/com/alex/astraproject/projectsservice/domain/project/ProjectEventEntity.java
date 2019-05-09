@@ -1,17 +1,19 @@
 package com.alex.astraproject.projectsservice.domain.project;
 
+import com.alex.astraproject.shared.BaseEventEntity;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import javax.persistence.Id;
-import java.util.UUID;
-
 @Document
 @Getter
-@Builder
-public class ProjectEventEntity {
+@ToString
+@NoArgsConstructor
+public class ProjectEventEntity extends BaseEventEntity {
 
     @Id
     @Field
@@ -20,16 +22,11 @@ public class ProjectEventEntity {
     @Field
     private String projectId;
 
-    @Field
-    private String type;
-
-    @Field
-    private Object data;
-
-    @Field
-    private long revision;
-
-    @Field
-    private long timestamp;
+	@Builder
+	public ProjectEventEntity(String id, String projectId, Object data, long revision, long timestamp, String type) {
+		super(data, revision, timestamp, type);
+		this.id = id;
+		this.projectId = projectId;
+	}
 
 }

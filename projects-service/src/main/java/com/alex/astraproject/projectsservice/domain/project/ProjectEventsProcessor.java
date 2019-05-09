@@ -21,15 +21,15 @@ public interface ProjectEventsProcessor {
     @Output(ProjectEventType.RESUMED)
     MessageChannel resumed();
 
-    @Output(ProjectEventType.ADDED_PARTICIPANT)
-    MessageChannel addedParticipant();
+    @Output(ProjectEventType.ADDED_EMPLOYEE)
+    MessageChannel addedEmployee();
 
-    @Output(ProjectEventType.REMOVED_PARTICIPANT)
-    MessageChannel removedParticipant();
+    @Output(ProjectEventType.REMOVED_EMPLOYEE)
+    MessageChannel removedEmployee();
 
     @Output(ProjectEventType.COMPLETED)
     MessageChannel completed();
 
-    @Output(ProjectEventType.CHANGED_PARTICIPANT_POSITION)
-    MessageChannel changedParticipantPosition();
+    @Output(ProjectEventType.CHANGED_EMPLOYEE_POSITION)
+    MessageChannel changedEmployeePosition();
 }

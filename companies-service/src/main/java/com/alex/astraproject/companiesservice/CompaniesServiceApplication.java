@@ -19,7 +19,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableSharedModule
-@EnableReactiveMongoRepositories(repositoryImplementationPostfix = "")
+@EnableReactiveMongoRepositories
 @RibbonClient(name = "companies-service")
 public class CompaniesServiceApplication {
 

@@ -1,6 +1,7 @@
 package com.alex.astraproject.shared.entities;
 
 
+import com.alex.astraproject.shared.statuses.ProjectStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,12 @@ public class Project {
 
     private String description;
 
-    private Set<Employee> participants;
+    private Set<Employee> employees;
+
+    private ProjectStatus Status;
+
+    private String companyId;
+
+    private Set<Position> positions;
 
 }

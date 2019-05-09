@@ -25,7 +25,7 @@ public class EmployeeController {
 
   @DeleteMapping("{id}")
   @ResponseStatus(HttpStatus.ACCEPTED)
-  public Mono<Void> deleteOne(@PathVariable UUID id) {
+  public Mono<Void> deleteOne(@PathVariable String id) {
     return employeeService
 	    .deleteEmployeeCommand(new DeleteEmployeeCommand(id))
       .flatMap(event -> {
@@ -36,7 +36,7 @@ public class EmployeeController {
 
   @PatchMapping("{id}")
   @ResponseStatus(HttpStatus.ACCEPTED)
-  public Mono<Void> updateOne(@PathVariable UUID id, @RequestBody @Valid UpdateEmployeeCommand command) {
+  public Mono<Void> updateOne(@PathVariable String id, @RequestBody @Valid UpdateEmployeeCommand command) {
     command.setEmployeeId(id);
     return employeeService
       .updateEmployeeCommand(command)

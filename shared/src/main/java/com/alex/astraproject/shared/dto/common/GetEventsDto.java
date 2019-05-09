@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class GetEventsDto extends PaginationDto {
 
@@ -20,5 +19,9 @@ public class GetEventsDto extends PaginationDto {
 	private Long timestampFrom;
 
 	private Long timestampTo;
+
+	public GetEventsDto() {
+		super(0, 100);
+	}
 
 }

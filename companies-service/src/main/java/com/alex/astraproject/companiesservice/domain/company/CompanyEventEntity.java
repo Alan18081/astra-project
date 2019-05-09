@@ -1,6 +1,7 @@
 package com.alex.astraproject.companiesservice.domain.company;
 
 import com.alex.astraproject.shared.BaseEventEntity;
+import com.alex.astraproject.shared.eventTypes.CompanyEventType;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -19,14 +20,10 @@ public class CompanyEventEntity extends BaseEventEntity {
     @Field
     private String companyId;
 
-    @Field
-    private String type;
-
     @Builder
-    public CompanyEventEntity(String id, String companyId, String type, Object data, long revision, long timestamp) {
-        super(data, revision, timestamp);
+    public CompanyEventEntity(String id, String companyId, Object data, long revision, long timestamp, String type) {
+        super(data, revision, timestamp, type);
         this.id = id;
         this.companyId = companyId;
-        this.type = type;
     }
 }

@@ -37,7 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
 		PasswordService passwordService;
 
-    public Flux<EmployeeEventEntity> findManyEventsById(UUID employeeId, int revisionFrom) {
+    public Flux<EmployeeEventEntity> findManyEventsById(String employeeId, int revisionFrom) {
       return employeeEventsRepository.findAllByEmployeeIdAndRevisionGreaterThan(employeeId, revisionFrom);
     }
 
@@ -48,9 +48,15 @@ public class EmployeeServiceImpl implements EmployeeService {
           if(isExists) {
             return Mono.error(new EmployeeAlreadyExistsException());
           }
-          UUID entityId = UUID.randomUUID();
+          String entityId = UUID.randomUUID().toString();
 	        command.setPassword(passwordService.encryptPassword(command.getPassword()));
-          EmployeeEventEntity event = new EmployeeEventEntity(null, entityId, EmployeeEventType.CREATED, command, 1);
+          EmployeeEventEntity event = EmployeeEventEntity.builder()
+            .id(null)
+            .employeeId(entityId)
+            .type(EmployeeEventType.CREATED)
+            .data(command)
+            .revision(1)
+            .build();
           return employeeEventsRepository.save(event);
         })
         .switchIfEmpty(Mono.error(new NotFoundException(Errors.COMPANY_NOT_FOUND_BY_ID)));
@@ -66,13 +72,14 @@ public class EmployeeServiceImpl implements EmployeeService {
             .findFirstByEmployeeIdOrderByRevisionDesc(employee.getId());
         })
         .flatMap(eventEntity -> {
-          EmployeeEventEntity event = new EmployeeEventEntity(
-            null,
-            command.getEmployeeId(),
-            EmployeeEventType.UPDATED,
-            command,
-            eventEntity.getRevision() + 1
-          );
+          EmployeeEventEntity event = EmployeeEventEntity.builder()
+          .id(null)
+          .employeeId(command.getEmployeeId())
+          .type(EmployeeEventType.UPDATED)
+          .data(command)
+          .revision(eventEntity.getRevision() + 1)
+          .build();
+
           return employeeEventsRepository.save(event);
         });
     }
@@ -84,13 +91,13 @@ public class EmployeeServiceImpl implements EmployeeService {
           if(eventEntity == null){
             return Mono.error(new EmployeeNotFoundException(Errors.EMPLOYEE_NOT_FOUND_BY_ID));
           }
-          EmployeeEventEntity event = new EmployeeEventEntity(
-            null,
-            command.getEmployeeId(),
-            EmployeeEventType.FIRED,
-            null,
-            eventEntity.getRevision() + 1
-          );
+          EmployeeEventEntity event = EmployeeEventEntity.builder()
+            .id(null)
+            .employeeId(command.getEmployeeId())
+            .type(EmployeeEventType.FIRED)
+            .data(null)
+            .revision(eventEntity.getRevision() + 1)
+            .build();
           return employeeEventsRepository.save(event);
         });
     }

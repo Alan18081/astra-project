@@ -9,10 +9,10 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @Repository
-public interface EmployeeEventsRepository extends ReactiveMongoRepository<EmployeeEventEntity, String> {
+public interface EmployeeEventsRepository extends ReactiveMongoRepository<EmployeeEventEntity, String>, CustomEmployeeEventsRepository {
 
-    Mono<EmployeeEventEntity> findFirstByEmployeeIdOrderByRevisionDesc(UUID employeeId);
+    Mono<EmployeeEventEntity> findFirstByEmployeeIdOrderByRevisionDesc(String employeeId);
 
-    Flux<EmployeeEventEntity> findAllByEmployeeIdAndRevisionGreaterThan(UUID employeeId, int revision);
+    Flux<EmployeeEventEntity> findAllByEmployeeIdAndRevisionGreaterThan(String employeeId, long revision);
 
 }

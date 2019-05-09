@@ -1,10 +1,8 @@
 package com.alex.astraproject.projectsservice.domain.project;
 
-import com.alex.astraproject.projectsservice.domain.project.commands.common.CreateProjectCommand;
-import com.alex.astraproject.projectsservice.domain.project.commands.common.DeleteProjectCommand;
-import com.alex.astraproject.projectsservice.domain.project.commands.common.UpdateProjectCommand;
-import com.alex.astraproject.projectsservice.domain.project.commands.participants.AddParticipantCommand;
-import com.alex.astraproject.projectsservice.domain.project.commands.participants.RemoveParticipantCommand;
+import com.alex.astraproject.projectsservice.domain.project.commands.common.*;
+import com.alex.astraproject.projectsservice.domain.project.commands.participants.AddEmployeeCommand;
+import com.alex.astraproject.projectsservice.domain.project.commands.participants.RemoveEmployeeCommand;
 import com.alex.astraproject.shared.dto.common.GetEventsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,14 +18,15 @@ import javax.validation.constraints.NotBlank;
 public class ProjectController {
 
   @Autowired
-  private ProjectEventsService projectEventsService;
+  private ProjectService projectService;
 
   @Autowired
   private ProjectMessagesService projectMessagesService;
 
   @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
   public Mono<Void> createOne(@RequestBody @Valid CreateProjectCommand command) {
-    return projectEventsService.createOne(command)
+    return projectService.createOne(command)
 	    .flatMap(projectEventEntity -> {
 	      projectMessagesService.sendCreatedEvent(projectEventEntity);
 	      return Mono.empty();
@@ -37,7 +36,7 @@ public class ProjectController {
 	@DeleteMapping("{id}")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public Mono<Void> deleteOne(@PathVariable String id) {
-		return projectEventsService
+		return projectService
 			.deleteOne(new DeleteProjectCommand(id))
 			.flatMap(event -> {
 				projectMessagesService.sendDeletedEvent(event);
@@ -49,7 +48,7 @@ public class ProjectController {
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public Mono<Void> updateOne(@PathVariable String id, @RequestBody @Valid UpdateProjectCommand command) {
 		command.setId(id);
-		return projectEventsService
+		return projectService
 			.updateOne(command)
 			.flatMap(event -> {
 				projectMessagesService.sendUpdatedEvent(event);
@@ -57,22 +56,46 @@ public class ProjectController {
 			});
 	}
 
-	@PatchMapping("{id}/add-participant")
+	@PatchMapping("{id}/complete")
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public Mono<Void> addParticipant(@PathVariable String id, @RequestBody @Valid AddParticipantCommand command) {
+	public Mono<Void> completeOne(@PathVariable String id, @RequestBody @Valid CompleteProjectCommand command) {
+		command.setId(id);
+		return projectService
+			.completeOne(command)
+			.flatMap(event -> {
+				projectMessagesService.sendCompletedEvent(event);
+				return Mono.empty();
+			});
+	}
+
+	@PatchMapping("{id}/stop")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public Mono<Void> stopOne(@PathVariable String id, @RequestBody @Valid StopProjectCommand command) {
+		command.setId(id);
+		return projectService
+			.stopOne(command)
+			.flatMap(event -> {
+				projectMessagesService.sendStoppedEvent(event);
+				return Mono.empty();
+			});
+	}
+
+	@PatchMapping("{id}/add-employee")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public Mono<Void> addEmployee(@PathVariable String id, @RequestBody @Valid AddEmployeeCommand command) {
   	command.setProjectId(id);
-  	return projectEventsService.addParticipant(command)
+  	return projectService.addEmployee(command)
 		  .flatMap(event -> {
 		  	projectMessagesService.sendAddedParticipantEvent(event);
 		    return Mono.empty();
 		  });
 	}
 
-	@PatchMapping("{id}/remove-participant")
+	@PatchMapping("{id}/remove-employee")
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public Mono<Void> removeParticipant(@PathVariable String id, @RequestBody @Valid RemoveParticipantCommand command) {
+	public Mono<Void> removeEmployee(@PathVariable String id, @RequestBody @Valid RemoveEmployeeCommand command) {
 		command.setProjectId(id);
-		return projectEventsService.removeParticipant(command)
+		return projectService.removeEmployee(command)
 			.flatMap(event -> {
 				projectMessagesService.sendRemovedParticipantEvent(event);
 				return Mono.empty();
@@ -85,7 +108,7 @@ public class ProjectController {
 		GetEventsDto dto
 	) {
 		dto.setEntityId(id);
-		return projectEventsService.getEvents(dto);
+		return projectService.getEvents(dto);
 	}
 
 }

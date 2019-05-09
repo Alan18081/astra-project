@@ -1,33 +1,10 @@
 package com.alex.astraproject.projectsservice.clients;
 
 import com.alex.astraproject.shared.entities.Employee;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.util.UUID;
+public interface EmployeeClient {
 
-@Component
-public class EmployeeClient {
+	Mono<Employee> findEmployeeByIdAndCompanyId(String employeeId, String companyId);
 
-	@Autowired
-	private WebClient.Builder client;
-
-	public Mono<Boolean> isEmployeeExists(String email) {
-		return client.build().get().uri("http://query-service/employees/email/{email}", email)
-			.exchange()
-			.flatMap(clientResponse -> {
-				if(clientResponse.rawStatusCode() == 404) {
-					return Mono.just(false);
-				}
-				return Mono.just(true);
-			});
-	}
-
-	public Mono<Employee> findEmployeeById(UUID id) {
-		return client.build().get().uri("http://query-service/employees/{id}", id)
-			.retrieve()
-			.bodyToMono(Employee.class);
-	}
 }

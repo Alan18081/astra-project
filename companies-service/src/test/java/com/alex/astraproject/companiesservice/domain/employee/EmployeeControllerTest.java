@@ -38,7 +38,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 @ActiveProfiles("test")
 @DirtiesContext
 public class EmployeeControllerTest {
-    UUID employeeId = UUID.randomUUID();
+    String employeeId = UUID.randomUUID().toString();
     List<EmployeeEventEntity> list;
 
     @Autowired
@@ -56,10 +56,25 @@ public class EmployeeControllerTest {
     @Before
     public void initData() {
       this.list = Arrays.asList(
-        new EmployeeEventEntity(null, employeeId, EmployeeEventType.CREATED, null, 1),
-	      new EmployeeEventEntity(null, employeeId, EmployeeEventType.UPDATED, null, 2),
-	      new EmployeeEventEntity(null, employeeId, EmployeeEventType.FIRED, null, 3)
-      );
+        EmployeeEventEntity.builder()
+	        .id(null)
+	        .employeeId(employeeId)
+	        .type(EmployeeEventType.CREATED)
+	        .data(null)
+	        .revision(1).build(),
+	      EmployeeEventEntity.builder()
+		      .id(null)
+		      .employeeId(employeeId)
+		      .type(EmployeeEventType.UPDATED)
+		      .data(null)
+		      .revision(2).build(),
+	      EmployeeEventEntity.builder()
+		      .id(null)
+		      .employeeId(employeeId)
+		      .type(EmployeeEventType.FIRED)
+		      .data(null)
+		      .revision(3).build()
+	    );
 
 	    employeeEventsRepository.deleteAll()
 		    .thenMany(Flux.fromIterable(list))
@@ -97,12 +112,12 @@ public class EmployeeControllerTest {
     public void updateEmployeeCommand() {
 	    Employee mockEmployee = new Employee();
 	    mockEmployee.setId(employeeId);
-	    Mockito.when(mockEmployeeQueryClient.findEmployeeById(any(UUID.class))).thenReturn(Mono.just(mockEmployee));
+	    Mockito.when(mockEmployeeQueryClient.findEmployeeById(anyString())).thenReturn(Mono.just(mockEmployee));
       UpdateEmployeeCommand command = new UpdateEmployeeCommand();
       command.setFirstName("Alex");
       command.setLastName("Markus");
 
-      client.patch().uri("/employees/{id}", employeeId.toString())
+      client.patch().uri("/employees/{id}", employeeId)
         .body(Mono.just(command), UpdateEmployeeCommand.class)
         .exchange()
         .expectStatus().isAccepted()
@@ -132,8 +147,8 @@ public class EmployeeControllerTest {
 	public void deleteEmployeeCommand() {
 		Employee mockEmployee = new Employee();
 		mockEmployee.setId(employeeId);
-		Mockito.when(mockEmployeeQueryClient.findEmployeeById(any(UUID.class))).thenReturn(Mono.just(mockEmployee));
-		client.delete().uri("/employees/{id}", employeeId.toString())
+		Mockito.when(mockEmployeeQueryClient.findEmployeeById(anyString())).thenReturn(Mono.just(mockEmployee));
+		client.delete().uri("/employees/{id}", employeeId)
 			.exchange()
 			.expectStatus().isAccepted()
 			.expectBody()
