@@ -1,5 +1,6 @@
 package com.alex.astraproject.queryservice.domain.company;
 
+import com.alex.astraproject.queryservice.shared.entities.BaseEntity;
 import com.alex.astraproject.shared.eventTypes.CompanyEventType;
 import com.alex.astraproject.shared.events.CompanyEvent;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import org.neo4j.ogm.annotation.Property;
 import org.neo4j.ogm.annotation.Relationship;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -20,11 +22,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class CompanyEntity {
-
-    @Id
-    private String id;
+public class CompanyEntity extends BaseEntity {
 
     @Property
     private String name;
@@ -39,16 +37,24 @@ public class CompanyEntity {
     private long numberOfEmployees;
 
     @Property
-    private Date deletedAt;
-
-    @Property
-    private long revision;
-
-    @Property
     private String companyId;
 
     @Relationship(type = "WORK_IN")
     private CompanyEntity company;
+
+    @Builder
+    public CompanyEntity(
+      String id, Date createdAt, Date deletedAt, long revision,
+      String name, String email, String password, long numberOfEmployees, String companyId, CompanyEntity company
+    ) {
+        super(id, createdAt, deletedAt, revision);
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.numberOfEmployees = numberOfEmployees;
+        this.companyId = companyId;
+        this.company = company;
+    }
 
     public void replay(List<CompanyEvent> events) {
         events.forEach(this::applyEvent);
@@ -57,12 +63,10 @@ public class CompanyEntity {
     public void applyEvent(CompanyEvent event) {
         switch (event.getType()) {
             case CompanyEventType.CREATED: {
-	            System.out.println(event);
                 this.id = event.getCompanyId();
                 this.name = (String) event.getData().get("name");
                 this.email = (String) event.getData().get("email");
                 this.password = (String) event.getData().get("password");
-
                 this.revision = event.getRevision();
                 break;
             }

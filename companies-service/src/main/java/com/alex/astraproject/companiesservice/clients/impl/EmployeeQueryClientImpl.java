@@ -1,5 +1,6 @@
-package com.alex.astraproject.companiesservice.clients;
+package com.alex.astraproject.companiesservice.clients.impl;
 
+import com.alex.astraproject.companiesservice.clients.EmployeeQueryClient;
 import com.alex.astraproject.shared.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,7 +9,7 @@ import reactor.core.publisher.Mono;
 
 
 @Component
-public class EmployeeClient {
+public class EmployeeQueryClientImpl implements EmployeeQueryClient {
 
 	@Autowired
 	private WebClient.Builder client;

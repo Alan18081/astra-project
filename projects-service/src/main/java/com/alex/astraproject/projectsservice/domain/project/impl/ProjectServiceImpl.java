@@ -19,6 +19,7 @@ import com.alex.astraproject.shared.entities.Project;
 import com.alex.astraproject.shared.eventTypes.ProjectEventType;
 import com.alex.astraproject.shared.exceptions.common.NotFoundException;
 import com.alex.astraproject.shared.exceptions.employees.EmployeeHasWrongStatusException;
+import com.alex.astraproject.shared.exceptions.employees.EmployeeNotFoundException;
 import com.alex.astraproject.shared.exceptions.projects.ProjectAlreadyHaveDesiredStatusException;
 import com.alex.astraproject.shared.exceptions.projects.ProjectAlreadyHaveRequiredPositionException;
 import com.alex.astraproject.shared.exceptions.projects.ProjectDoesNotHaveRequiredEmployeeException;
@@ -125,7 +126,7 @@ public class ProjectServiceImpl implements ProjectService {
 			.flatMap(project -> {
 				Position position = Position.builder().id(command.getPositionId()).build();
 				if(!project.getPositions().contains(position)) {
-					return Mono.error(new ProjectDoesNotHaveRequiredPositionException());
+					return Mono.error(new NotFoundException(Errors.PROJECT_DOES_NOT_HAVE_REQUIRED_POSITION));
 				}
 				return employeeClient.findEmployeeByIdAndCompanyId(command.getEmployeeId(), project.getCompanyId())
 					.switchIfEmpty(Mono.error(new NotFoundException(Errors.EMPLOYEE_NOT_FOUND_BY_ID)))
@@ -147,9 +148,7 @@ public class ProjectServiceImpl implements ProjectService {
 				if(!project.getEmployees().contains(employeeToRemove)) {
 					return Mono.error(new ProjectDoesNotHaveRequiredEmployeeException());
 				};
-				return employeeClient.findEmployeeByIdAndCompanyId(command.getEmployeeId(), project.getCompanyId())
-					.switchIfEmpty(Mono.error(new NotFoundException(Errors.EMPLOYEE_NOT_FOUND_BY_ID)))
-					.flatMap(employee -> buildEvent(project, ProjectEventType.REMOVED_EMPLOYEE, command));
+				return buildEvent(project, ProjectEventType.REMOVED_EMPLOYEE, command);
 			});
 	}
 

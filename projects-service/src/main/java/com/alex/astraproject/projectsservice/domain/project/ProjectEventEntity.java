@@ -9,18 +9,18 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document
+@Document(collection = "projectEvent")
 @Getter
 @ToString
 @NoArgsConstructor
 public class ProjectEventEntity extends BaseEventEntity {
 
-    @Id
-    @Field
-    private String id;
+  @Id
+  @Field
+  private String id;
 
-    @Field
-    private String projectId;
+  @Field
+  private String projectId;
 
 	@Builder
 	public ProjectEventEntity(String id, String projectId, Object data, long revision, long timestamp, String type) {

@@ -1,6 +1,6 @@
 package com.alex.astraproject.companiesservice.domain.company.impl;
 
-import com.alex.astraproject.companiesservice.clients.CompanyClient;
+import com.alex.astraproject.companiesservice.clients.CompanyQueryClient;
 import com.alex.astraproject.companiesservice.domain.company.CompanyEventEntity;
 import com.alex.astraproject.companiesservice.domain.company.CompanyEventsRepository;
 import com.alex.astraproject.companiesservice.domain.company.CompanyService;
@@ -32,10 +32,10 @@ public class CompanyServiceImpl implements CompanyService {
   private CompanyEventsRepository companyEventsRepository;
 
   @Autowired
-  private CompanyClient companyClient;
+  private CompanyQueryClient companyQueryClient;
 
   public Mono<CompanyEventEntity> createCompanyCommand(CreateCompanyCommand command) {
-    return companyClient.isCompanyExistsByEmail(command.getEmail())
+    return companyQueryClient.isCompanyExistsByEmail(command.getEmail())
       .flatMap(isExists -> {
         if (isExists) {
           return Mono.error(new CompanyAlreadyExistsException());
@@ -55,13 +55,13 @@ public class CompanyServiceImpl implements CompanyService {
   }
 
   public Mono<CompanyEventEntity> updateCompanyCommand(UpdateCompanyCommand command) {
-    return companyClient.findCompanyById(command.getCompanyId())
+    return companyQueryClient.findCompanyById(command.getCompanyId())
       .switchIfEmpty(Mono.error(new CompanyNotFoundException(Errors.COMPANY_NOT_FOUND_BY_ID)))
       .flatMap(company -> buildEvent(company, CompanyEventType.UPDATED, command));
   }
 
   public Mono<CompanyEventEntity> deleteCompanyCommand(DeleteCompanyCommand command) {
-    return companyClient.findCompanyById(command.getCompanyId())
+    return companyQueryClient.findCompanyById(command.getCompanyId())
       .switchIfEmpty(Mono.error(new CompanyNotFoundException(Errors.COMPANY_NOT_FOUND_BY_ID)))
       .flatMap(company -> buildEvent(company, CompanyEventType.DELETED, command));
 
@@ -81,11 +81,10 @@ public class CompanyServiceImpl implements CompanyService {
         return companyEventsRepository.save(event);
       });
   }
-//
+
   @Override
   public Flux<CompanyEventEntity> getEvents(GetEventsDto dto) {
-//    return companyEventsRepository.findManyEvents(dto);
-    return null;
+    return companyEventsRepository.findManyEvents(dto);
   }
 
 }

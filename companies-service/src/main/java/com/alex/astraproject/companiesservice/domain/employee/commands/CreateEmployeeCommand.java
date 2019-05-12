@@ -1,6 +1,7 @@
 package com.alex.astraproject.companiesservice.domain.employee.commands;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -33,5 +34,8 @@ public class CreateEmployeeCommand {
 
     @NotNull
     private String companyId;
+
+    @NotNull
+    private String positionId;
 
 }

@@ -48,4 +48,19 @@ public class ProjectMessagesServiceImpl extends AbstractMessagesService<ProjectE
     public void sendRemovedParticipantEvent(ProjectEventEntity event) {
         processor.removedEmployee().send(createMessage(event));
     }
+
+    @Override
+    public void sendChangeEmployeePositionEvent(ProjectEventEntity event) {
+        processor.changedEmployeePosition().send(createMessage(event));
+    }
+
+    @Override
+    public void sendAddedPositionEvent(ProjectEventEntity event) {
+        processor.addedPosition().send(createMessage(event));
+    }
+
+    @Override
+    public void sendRemovedPositionEvent(ProjectEventEntity event) {
+        processor.removedPosition().send(createMessage(event));
+    }
 }

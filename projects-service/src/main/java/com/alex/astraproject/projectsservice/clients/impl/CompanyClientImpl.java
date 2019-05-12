@@ -9,12 +9,13 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class CompanyClientImpl implements CompanyClient {
+	private static final String BASE_URL = "http://query-service/companies";
 
 	@Autowired
 	private WebClient.Builder client;
 
 	public Mono<Company> findCompanyById(String id) {
-		return client.build().get().uri("http://query-service/companies/{id}", id)
+		return client.build().get().uri(BASE_URL + "/{id}", id)
 			.exchange()
 			.flatMap(clientResponse -> clientResponse.bodyToMono(Company.class));
 	}

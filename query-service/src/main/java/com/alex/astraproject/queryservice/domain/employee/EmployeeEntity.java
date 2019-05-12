@@ -1,5 +1,6 @@
 package com.alex.astraproject.queryservice.domain.employee;
 
+import com.alex.astraproject.queryservice.shared.entities.BaseEntity;
 import com.alex.astraproject.shared.eventTypes.EmployeeEventType;
 import com.alex.astraproject.shared.events.EmployeeEvent;
 import lombok.AllArgsConstructor;
@@ -22,11 +23,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class EmployeeEntity {
-
-    @Id
-    private String id;
+public class EmployeeEntity extends BaseEntity {
 
     @Property
     private String firstName;
@@ -43,17 +40,21 @@ public class EmployeeEntity {
     @Property
     private BigDecimal salary;
 
-    @Property
-    private Date createdAt;
-
-    @Property
-    private Date deletedAt;
-
-    @Property
-    private int revision;
-
     @Relationship(type = "WORKS_IN", direction = Relationship.INCOMING)
     private Set<EmployeeEntity> employeeEntitySet;
+
+    @Builder
+    public EmployeeEntity(
+      String id, Date createdAt, Date deletedAt, long revision,
+      String firstName, String lastName, String email, String password, BigDecimal salary
+    ) {
+        super(id, createdAt, deletedAt, revision);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.salary = salary;
+    }
 
     public void replay(List<EmployeeEvent> events) {
         events.forEach(this::applyEvent);

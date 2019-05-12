@@ -32,4 +32,10 @@ public interface ProjectEventsProcessor {
 
     @Output(ProjectEventType.CHANGED_EMPLOYEE_POSITION)
     MessageChannel changedEmployeePosition();
+
+    @Output(ProjectEventType.ADDED_POSITION)
+    MessageChannel addedPosition();
+
+    @Output(ProjectEventType.REMOVED_POSITION)
+    MessageChannel removedPosition();
 }

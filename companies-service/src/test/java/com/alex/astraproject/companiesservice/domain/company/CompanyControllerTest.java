@@ -1,10 +1,9 @@
 package com.alex.astraproject.companiesservice.domain.company;
 
-import com.alex.astraproject.companiesservice.clients.CompanyClient;
+import com.alex.astraproject.companiesservice.clients.CompanyQueryClient;
 import com.alex.astraproject.companiesservice.domain.company.commands.CreateCompanyCommand;
 import com.alex.astraproject.companiesservice.domain.company.commands.UpdateCompanyCommand;
 import com.alex.astraproject.companiesservice.domain.employee.EmployeeEventEntity;
-import com.alex.astraproject.companiesservice.domain.employee.commands.UpdateEmployeeCommand;
 import com.alex.astraproject.shared.entities.Company;
 import com.alex.astraproject.shared.eventTypes.CompanyEventType;
 import org.junit.Before;
@@ -49,7 +48,7 @@ public class CompanyControllerTest {
     CompanyEventsRepository companyEventsRepository;
 
     @MockBean
-    CompanyClient mockCompanyQueryClient;
+    CompanyQueryClient mockCompanyQueryClient;
 
     @Before
     public void initData() {

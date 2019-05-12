@@ -5,4 +5,5 @@ public class EmployeeEventType {
     public static final String UPDATED = "[Employee] Updated";
     public static final String FIRED = "[Employee] Fired";
     public static final String CHANGED_PASSWORD = "[Employee] Changed Password";
+    public static final String CHANGED_POSITION = "[Employee] Changed Position";
 }

@@ -19,7 +19,7 @@ import java.util.UUID;
 @AutoConfigureWebTestClient
 @DirtiesContext
 @SpringBootTest
-public class EmployeeControllerTest {
+public class ProjectControllerTest {
 	List<EmployeeEntity> list;
 
 	@Autowired

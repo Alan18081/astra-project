@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/companies-service/employees")
+@RequestMapping("/employees")
 public class EmployeeAuthController {
 
 	@Autowired

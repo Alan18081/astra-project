@@ -13,15 +13,15 @@ public class EventsQueryBuilderImpl implements EventsQueryBuilder {
 
 	@Override
 	public Query createQuery(String entityName, GetEventsDto dto) {
-		Pageable pageable = PageRequest.of(dto.getPage(), dto.getLimit());
-		final Query query = new Query();
-		query.addCriteria(Criteria.where(entityName).is(dto.getEntityId()));
+		Pageable pageable = PageRequest.of(dto.getPage() - 1, dto.getLimit());
+		Query query = new Query();
+		query = query.addCriteria(Criteria.where(entityName).is(dto.getEntityId()));
 		if(dto.getRevisionFrom() != null || dto.getRevisionTo() != null) {
-			query.addCriteria(createCriteria("revision", dto.getRevisionFrom(), dto.getRevisionTo()));
+			query = query.addCriteria(createCriteria("revision", dto.getRevisionFrom(), dto.getRevisionTo()));
 		}
 
 		if(dto.getTimestampFrom() != null || dto.getTimestampTo() != null) {
-			query.addCriteria(createCriteria("timestamp", dto.getTimestampFrom(), dto.getTimestampTo()));
+			query = query.addCriteria(createCriteria("timestamp", dto.getTimestampFrom(), dto.getTimestampTo()));
 		}
 		return query.with(pageable);
 	}

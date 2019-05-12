@@ -6,6 +6,8 @@ import com.alex.astraproject.shared.dto.common.GetEventsDto;
 import com.alex.astraproject.shared.services.EventsQueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 

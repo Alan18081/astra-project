@@ -50,7 +50,7 @@ public class EmployeeAuthControllerTest {
 		Mockito.when(mockEmployeeClient.findEmployeeByEmail(anyString())).thenReturn(Mono.just(employee));
 		employee.setPassword(passwordService.encryptPassword("password"));
 //		Mockito.when(passwordService.comparePassword(anyString(), anyString())).thenReturn(true);
-		LoginDto dto = new LoginDto("employee@gmail.com", "password");
+		LoginDto dto = new LoginDto("position@gmail.com", "password");
 		JwtResponse responseBody = client.post().uri("/companies-service/employees/login")
 			.body(Mono.just(dto), LoginDto.class)
 			.exchange()
@@ -66,7 +66,7 @@ public class EmployeeAuthControllerTest {
 	public void login_noEmployeeFound() {
 		Mockito.when(mockEmployeeClient.findEmployeeByEmail(anyString())).thenReturn(Mono.empty());
 		employee.setPassword(passwordService.encryptPassword("password"));
-		LoginDto dto = new LoginDto("employee@gmail.com", "password");
+		LoginDto dto = new LoginDto("position@gmail.com", "password");
 		client.post().uri("/companies-service/employees/login")
 			.body(Mono.just(dto), LoginDto.class)
 			.exchange()
@@ -81,7 +81,7 @@ public class EmployeeAuthControllerTest {
 	@Test
 	public void login_wrongPassword() {
 		Mockito.when(mockEmployeeClient.findEmployeeByEmail(anyString())).thenReturn(Mono.just(employee));
-		LoginDto dto = new LoginDto("employee@gmail.com", "password");
+		LoginDto dto = new LoginDto("position@gmail.com", "password");
 		client.post().uri("/companies-service/employees/login")
 			.body(Mono.just(dto), LoginDto.class)
 			.exchange()
@@ -95,7 +95,7 @@ public class EmployeeAuthControllerTest {
 //
 //	@Test
 //	public void authProcess() {
-//		Mockito.when(mockEmployeeClient.findEmployeeByEmail(anyString())).thenReturn(Mono.just(employee));
+//		Mockito.when(mockEmployeeClient.findEmployeeByEmail(anyString())).thenReturn(Mono.just(position));
 //		Mockito.when(passwordService.comparePassword(anyString(), anyString())).thenReturn(false);
 //		client.get().uri("/companies-service/employees/login")
 //			.body(Mono.just(dto), LoginDto.class)

@@ -5,6 +5,4 @@ public interface Mutable<E> {
 
 	void updateById(E event);
 
-	void deleteById(E event);
-
 }

@@ -11,14 +11,15 @@ import java.util.UUID;
 
 @Component
 public class EmployeeClient {
+	private static final String BASE_URL = "http://query-service/employees";
 
 	@Autowired
 	private WebClient.Builder client;
 
-	public Mono<EmployeeEvent> findEmployeeEventsById(String id, int revision) {
+	public Mono<EmployeeEvent> findEmployeeEventsById(String id, long revision) {
 		return client.build()
 			.get()
-			.uri("http://query-service/employees/{id}/events?revisionFrom={revision}", id, revision)
+			.uri(BASE_URL + "/{id}/events?revisionFrom={revision}", id, revision)
 			.retrieve()
 			.bodyToMono(EmployeeEvent.class);
 	}

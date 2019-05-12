@@ -26,6 +26,7 @@ public class CompanyController {
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Mono<Void> deleteOne(@PathVariable String id) {
+      System.out.println("Hello");
         return companyService
           .deleteCompanyCommand(new DeleteCompanyCommand(id))
           .flatMap(event -> {

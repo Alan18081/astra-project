@@ -9,18 +9,19 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class ProjectClientImpl implements ProjectClient {
+	private static final String BASE_URL = "http://query-service/projects";
 
 	@Autowired
 	private WebClient.Builder client;
 
 	public Mono<Project> findProjectById(String id) {
-		return client.build().get().uri("http://query-service/projects/{id}", id)
+		return client.build().get().uri(BASE_URL + "/{id}", id)
 			.exchange()
 			.flatMap(clientResponse -> clientResponse.bodyToMono(Project.class));
 	}
 
 	public Mono<Project> findProjectById(String id, boolean includeEmployees) {
-		return client.build().get().uri("http://query-service/projects/{id}?includeEmployees={includeEmployees}", id, includeEmployees)
+		return client.build().get().uri(BASE_URL + "/{id}?includeEmployees={includeEmployees}", id, includeEmployees)
 			.exchange()
 			.flatMap(clientResponse -> clientResponse.bodyToMono(Project.class));
 	}

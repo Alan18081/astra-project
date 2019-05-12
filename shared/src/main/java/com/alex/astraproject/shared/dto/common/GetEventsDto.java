@@ -4,10 +4,12 @@ import com.alex.astraproject.shared.dto.companies.PaginationDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.lang.Nullable;
 
 @AllArgsConstructor
 @Data
+@ToString
 public class GetEventsDto extends PaginationDto {
 
 	private String entityId;
@@ -21,7 +23,6 @@ public class GetEventsDto extends PaginationDto {
 	private Long timestampTo;
 
 	public GetEventsDto() {
-		super(0, 100);
+		super(1, 100);
 	}
-
 }

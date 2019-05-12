@@ -1,5 +1,6 @@
 package com.alex.astraproject.companiesservice.domain.employee;
 
+import com.alex.astraproject.companiesservice.domain.employee.commands.ChangeEmployeePositionCommand;
 import com.alex.astraproject.companiesservice.domain.employee.commands.CreateEmployeeCommand;
 import com.alex.astraproject.companiesservice.domain.employee.commands.DeleteEmployeeCommand;
 import com.alex.astraproject.companiesservice.domain.employee.commands.UpdateEmployeeCommand;
@@ -43,6 +44,18 @@ public class EmployeeController {
       .flatMap(event -> {
           employeeMessagesService.sendUpdatedEmployeeEvent(event);
           return Mono.empty();
+      });
+  }
+
+  @PatchMapping("{id}/change-position")
+  @ResponseStatus(HttpStatus.ACCEPTED)
+  public Mono<Void> changePosition(@PathVariable String id, @RequestBody @Valid ChangeEmployeePositionCommand command) {
+    command.setEmployeeId(id);
+    return employeeService
+      .changeEmployeePosition(command)
+      .flatMap(event -> {
+        employeeMessagesService.sendChangedEmployeePositionEvent(event);
+        return Mono.empty();
       });
   }
 

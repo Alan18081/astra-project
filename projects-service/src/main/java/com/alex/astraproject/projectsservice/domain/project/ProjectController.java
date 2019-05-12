@@ -2,7 +2,10 @@ package com.alex.astraproject.projectsservice.domain.project;
 
 import com.alex.astraproject.projectsservice.domain.project.commands.common.*;
 import com.alex.astraproject.projectsservice.domain.project.commands.participants.AddEmployeeCommand;
+import com.alex.astraproject.projectsservice.domain.project.commands.participants.ChangeEmployeePositionCommand;
 import com.alex.astraproject.projectsservice.domain.project.commands.participants.RemoveEmployeeCommand;
+import com.alex.astraproject.projectsservice.domain.project.commands.positions.AddPositionCommand;
+import com.alex.astraproject.projectsservice.domain.project.commands.positions.RemovePositionCommand;
 import com.alex.astraproject.shared.dto.common.GetEventsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -84,6 +87,7 @@ public class ProjectController {
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public Mono<Void> addEmployee(@PathVariable String id, @RequestBody @Valid AddEmployeeCommand command) {
   	command.setProjectId(id);
+		System.out.println(command);
   	return projectService.addEmployee(command)
 		  .flatMap(event -> {
 		  	projectMessagesService.sendAddedParticipantEvent(event);
@@ -98,6 +102,40 @@ public class ProjectController {
 		return projectService.removeEmployee(command)
 			.flatMap(event -> {
 				projectMessagesService.sendRemovedParticipantEvent(event);
+				return Mono.empty();
+			});
+	}
+
+	@PatchMapping("{id}/change-employee-position")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public Mono<Void> changeEmployeePosition(@PathVariable String id, @RequestBody @Valid ChangeEmployeePositionCommand command) {
+		command.setProjectId(id);
+		return projectService.changeEmployeePosition(command)
+			.flatMap(event -> {
+				projectMessagesService.sendChangeEmployeePositionEvent(event);
+				return Mono.empty();
+			});
+	}
+
+	@PatchMapping("{id}/add-position")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public Mono<Void> addPositionToProject(@PathVariable String id, @RequestBody @Valid AddPositionCommand command) {
+		command.setProjectId(id);
+		System.out.println(command);
+		return projectService.addPosition(command)
+			.flatMap(event -> {
+				projectMessagesService.sendAddedPositionEvent(event);
+				return Mono.empty();
+			});
+	}
+
+	@PatchMapping("{id}/remove-position")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public Mono<Void> removePositionFromProject(@PathVariable String id, @RequestBody @Valid RemovePositionCommand command) {
+		command.setProjectId(id);
+		return projectService.removePosition(command)
+			.flatMap(event -> {
+				projectMessagesService.sendRemovedPositionEvent(event);
 				return Mono.empty();
 			});
 	}

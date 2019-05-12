@@ -1,22 +1,21 @@
-package com.alex.astraproject.companiesservice.clients;
+package com.alex.astraproject.companiesservice.clients.impl;
 
+import com.alex.astraproject.companiesservice.clients.CompanyQueryClient;
 import com.alex.astraproject.shared.entities.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.util.UUID;
-
 @Component
-public class CompanyClient {
+public class CompanyQueryClientImpl implements CompanyQueryClient {
+	private static final String BASE_URL = "http://query-service/companies";
 
 	@Autowired
 	private WebClient.Builder client;
 
 	public Mono<Boolean> isCompanyExistsByEmail(String email) {
-		return client.build().get().uri("http://query-service/companies/email/{email}", email)
+		return client.build().get().uri(BASE_URL + "/email/{email}", email)
 			.exchange()
 			.flatMap(clientResponse -> {
 				if(clientResponse.rawStatusCode() == 404) {
@@ -27,7 +26,7 @@ public class CompanyClient {
 	}
 
 	public Mono<Company> findCompanyById(String id) {
-		return client.build().get().uri("http://query-service/companies/{id}", id)
+		return client.build().get().uri(BASE_URL + "/{id}", id)
 			.exchange()
 			.flatMap(clientResponse -> clientResponse.bodyToMono(Company.class));
 	}

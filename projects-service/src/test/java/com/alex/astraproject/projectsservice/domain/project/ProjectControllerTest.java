@@ -1,15 +1,22 @@
 package com.alex.astraproject.projectsservice.domain.project;
 
 import com.alex.astraproject.projectsservice.clients.CompanyClient;
+import com.alex.astraproject.projectsservice.clients.EmployeeClient;
 import com.alex.astraproject.projectsservice.clients.ProjectClient;
 import com.alex.astraproject.projectsservice.domain.project.commands.common.CompleteProjectCommand;
 import com.alex.astraproject.projectsservice.domain.project.commands.common.CreateProjectCommand;
 import com.alex.astraproject.projectsservice.domain.project.commands.common.StopProjectCommand;
 import com.alex.astraproject.projectsservice.domain.project.commands.common.UpdateProjectCommand;
+import com.alex.astraproject.projectsservice.domain.project.commands.participants.AddEmployeeCommand;
 import com.alex.astraproject.shared.entities.Company;
+import com.alex.astraproject.shared.entities.Employee;
+import com.alex.astraproject.shared.entities.Position;
 import com.alex.astraproject.shared.entities.Project;
 import com.alex.astraproject.shared.eventTypes.ProjectEventType;
 import com.alex.astraproject.shared.messages.Errors;
+import com.alex.astraproject.shared.statuses.EmployeeStatus;
+import com.alex.astraproject.shared.statuses.ProjectStatus;
+import org.apache.commons.compress.utils.Sets;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,10 +34,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -52,6 +56,9 @@ public class ProjectControllerTest {
 
     @MockBean
     ProjectClient mockProjectQueryClient;
+
+    @MockBean
+    EmployeeClient mockEmployeeQueryClient;
 
     @MockBean
     CompanyClient companyClient;
@@ -180,7 +187,7 @@ public class ProjectControllerTest {
     client.patch().uri("/projects/{id}/complete", projectId)
       .body(Mono.just(command), CompleteProjectCommand.class)
       .exchange()
-      .expectStatus().isAccepted()
+      .expectStatus().isNotFound()
       .expectBody()
       .jsonPath("$.message").isEqualTo(Errors.PROJECT_NOT_FOUND_BY_ID);
   }
@@ -204,6 +211,39 @@ public class ProjectControllerTest {
           .expectNextCount(4l)
           .verifyComplete();
       });
+  }
+
+  @Test
+  public void stoppedProjectCommand_notFound() {
+    Project mockProject = new Project();
+    mockProject.setId(projectId);
+    Mockito.when(mockProjectQueryClient.findProjectById(anyString())).thenReturn(Mono.empty());
+    StopProjectCommand command = new StopProjectCommand();
+    command.setId(projectId);
+
+    client.patch().uri("/projects/{id}/stop", projectId)
+      .body(Mono.just(command), StopProjectCommand.class)
+      .exchange()
+      .expectStatus().isNotFound()
+      .expectBody()
+      .jsonPath("$.message").isEqualTo(Errors.PROJECT_NOT_FOUND_BY_ID);
+  }
+
+  @Test
+  public void stoppedProjectCommand_invalidStatus() {
+    Project mockProject = new Project();
+    mockProject.setId(projectId);
+    mockProject.setStatus(ProjectStatus.STOPPED);
+    Mockito.when(mockProjectQueryClient.findProjectById(anyString())).thenReturn(Mono.just(mockProject));
+    StopProjectCommand command = new StopProjectCommand();
+    command.setId(projectId);
+
+    client.patch().uri("/projects/{id}/stop", projectId)
+      .body(Mono.just(command), StopProjectCommand.class)
+      .exchange()
+      .expectStatus().isBadRequest()
+      .expectBody()
+      .jsonPath("$.message").isEqualTo(Errors.PROJECT_ALREADY_STOPPED);
   }
 
   @Test
@@ -260,8 +300,9 @@ public class ProjectControllerTest {
     Mockito.when(mockProjectQueryClient.findProjectById(anyString())).thenReturn(Mono.empty());
     client.delete().uri("/projects/{id}", projectId)
       .exchange()
-      .expectStatus().isAccepted()
+      .expectStatus().isNotFound()
       .expectBody()
       .jsonPath("$.message").isEqualTo(Errors.PROJECT_NOT_FOUND_BY_ID);
   }
+
 }

@@ -15,6 +15,9 @@ public interface EmployeeEventsProcessor {
     @Output(EmployeeEventType.FIRED)
     MessageChannel fired();
 
+    @Output(EmployeeEventType.CHANGED_POSITION)
+    MessageChannel changedPosition();
+
     @Output(EmployeeEventType.CHANGED_PASSWORD)
     MessageChannel changedPassword();
 

@@ -17,5 +17,10 @@ public interface ProjectMessagesService {
 
 	void sendRemovedParticipantEvent(ProjectEventEntity event);
 
+	void sendChangeEmployeePositionEvent(ProjectEventEntity event);
+
+	void sendAddedPositionEvent(ProjectEventEntity event);
+
+	void sendRemovedPositionEvent(ProjectEventEntity event);
 
 }

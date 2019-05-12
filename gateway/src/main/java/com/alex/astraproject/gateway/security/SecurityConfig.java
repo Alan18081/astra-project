@@ -46,40 +46,22 @@ public class SecurityConfig {
 			.csrf().disable()
 			.formLogin().disable()
 			.httpBasic().disable();
-//			.authorizeExchange()
-//			.pathMatchers(HttpMethod.OPTIONS).permitAll()
-//			.pathMatchers(HttpMethod.POST, SecurityConstants.LOGIN_COMPANY_URL).permitAll()
-//			.pathMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_COMPANY_URL).permitAll()
-//			.pathMatchers(HttpMethod.POST, SecurityConstants.LOGIN_EMPLOYEE_URL).permitAll()
-//			.pathMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_EMPLOYEE_URL).permitAll()
-//			.and();
 	}
-
-//	@Bean
-//	public SecurityWebFilterChain employeeSecurityWebFilterChain(ServerHttpSecurity security) {
-//			return commonConfig(security.securityMatcher(new SecurityPathMatcher("/companies-service/employees/**")))
-//			.securityContextRepository(employeeSecurityRepository)
-//			.authorizeExchange()
-////			.pathMatchers(HttpMethod.OPTIONS).permitAll()
-////			.pathMatchers(HttpMethod.POST, SecurityConstants.LOGIN_EMPLOYEE_URL).permitAll()
-////			.pathMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_EMPLOYEE_URL).permitAll()
-//			.anyExchange().authenticated().and().build();
-//	}
 
 	@Bean
 	public SecurityWebFilterChain companySecurityWebFilterChain(ServerHttpSecurity security) {
-		return commonConfig(security.securityMatcher(new SecurityPathMatcher("/companies-service/companies/**")))
+		return commonConfig(security.securityMatcher(new SecurityPathMatcher("/companies/**")))
 			.securityContextRepository(companySecurityRepository)
 			.authorizeExchange()
 			.pathMatchers(HttpMethod.OPTIONS).permitAll()
-			.pathMatchers(HttpMethod.POST, SecurityConstants.LOGIN_COMPANY_URL).permitAll()
-			.pathMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_COMPANY_URL).permitAll()
+			.pathMatchers(HttpMethod.POST, "/companies/login").permitAll()
+			.pathMatchers(HttpMethod.POST, "/companies").permitAll()
 			.and()
-			.securityMatcher(new SecurityPathMatcher("/companies-service/employees/**"))
+			.securityMatcher(new SecurityPathMatcher("/employees/**"))
 			.securityContextRepository(employeeSecurityRepository)
 			.authorizeExchange()
-			.pathMatchers(HttpMethod.POST, "/companies-service/employees/login").permitAll()
-			.pathMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_EMPLOYEE_URL).permitAll()
+			.pathMatchers(HttpMethod.POST, "/employees/login").permitAll()
+			.pathMatchers(HttpMethod.POST, "/employees").permitAll()
 			.anyExchange().authenticated()
 			.and()
 			.build();

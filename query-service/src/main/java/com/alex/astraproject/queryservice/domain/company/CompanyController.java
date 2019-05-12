@@ -27,13 +27,9 @@ public class CompanyController {
     @GetMapping("{id}")
     public Mono<ResponseEntity<CompanyEntity>> findOneById(@PathVariable String id) {
         return companyService.findById(id)
-//          .doOnNext(companyEntity -> {
-//              System.out.println(companyEntity);
-//          })
           .map(ResponseEntity::ok)
           .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
 
     @GetMapping("/email/{email}")
     public Mono<ResponseEntity<CompanyEntity>> findOneByEmail(@PathVariable String email) {

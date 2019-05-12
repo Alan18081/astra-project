@@ -13,9 +13,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
   application:
-    name: companies-service
+    name: projects-service
 server:
-  port: 5001
+  port: 5002
 eureka:
   client:
     service-url:

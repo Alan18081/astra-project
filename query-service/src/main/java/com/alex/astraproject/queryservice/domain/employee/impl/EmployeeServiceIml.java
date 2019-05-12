@@ -11,7 +11,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
-import java.util.UUID;
 
 @Service
 public class EmployeeServiceIml implements EmployeeService {
@@ -35,12 +34,6 @@ public class EmployeeServiceIml implements EmployeeService {
 
     @Override
     public void updateById(EmployeeEvent event) {
-        Mono<EmployeeEntity> employeeEntityMono = Mono.justOrEmpty(employeeRepository.findById(event.getEmployeeId()));
-        applyEvents(employeeEntityMono);
-    }
-
-    @Override
-    public void deleteById(EmployeeEvent event) {
         Mono<EmployeeEntity> employeeEntityMono = Mono.justOrEmpty(employeeRepository.findById(event.getEmployeeId()));
         applyEvents(employeeEntityMono);
     }

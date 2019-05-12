@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class AddPositionCommand {
 
-   @NotNull
    private String projectId;
 
    @NotNull

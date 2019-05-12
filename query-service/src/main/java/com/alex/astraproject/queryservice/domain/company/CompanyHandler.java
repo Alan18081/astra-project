@@ -27,4 +27,8 @@ public class CompanyHandler {
         companyService.updateById(companyEvent);
     }
 
+    @StreamListener(CompanyEventType.DELETED)
+    public void onCompanyDeleted(@Payload CompanyEvent companyEvent) {
+        companyService.updateById(companyEvent);
+    }
 }

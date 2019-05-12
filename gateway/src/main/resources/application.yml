@@ -20,11 +20,16 @@ spring:
         - id: all
           uri: lb://query-service
           predicates:
-          - Path=/query-service/**
+          - Method=GET
+          - Path=/companies/**, /projects/**, /employees/**,/positions/**
         - id: companies_service
           uri: lb://companies-service
           predicates:
-          - Path=/companies-service/**
+          - Path=/companies/**,/employees/**,/positions/**
+        - id: projects_service
+          uri: lb://projects-service
+          predicates:
+          - Path=/projects/**, /sprints/**
 
 eureka:
   client:

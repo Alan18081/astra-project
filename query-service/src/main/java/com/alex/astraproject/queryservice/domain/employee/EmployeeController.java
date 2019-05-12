@@ -30,7 +30,6 @@ public class EmployeeController {
           .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-
     @GetMapping("/email/{email}")
     public Mono<ResponseEntity<EmployeeEntity>> findOneByEmail(@PathVariable String email) {
         return employeeService.findOneByEmail(email)

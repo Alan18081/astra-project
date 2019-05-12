@@ -20,7 +20,6 @@ public class EmployeeHandler {
 
     @StreamListener(EmployeeEventType.CREATED)
     public void onCompanyCreated(@Payload EmployeeEvent employeeEvent) {
-        System.out.println("Creating employee: " + employeeEvent);
         employeeService.createOne(employeeEvent);
     }
 

@@ -12,4 +12,6 @@ public interface CompanyProcessor {
     @Input(CompanyEventType.UPDATED)
     SubscribableChannel updated();
 
+    @Input(CompanyEventType.DELETED)
+    SubscribableChannel deleted();
 }
