@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2697d9d0-1df4-42a2-8a49-bb5e264f1fba" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/companies-service/src/main/java/com/alex/astraproject/companiesservice/clients/CompanyQueryClient.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/companies-service/src/main/java/com/alex/astraproject/companiesservice/clients/EmployeeQueryClient.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/companies-service/src/main/java/com/alex/astraproject/companiesservice/clients/PositionQueryClient.java" afterDir="false" />
@@ -144,6 +145,7 @@
       <change beforePath="$PROJECT_DIR$/shared/target/classes/com/alex/astraproject/shared/dto/companies/PaginationDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/shared/target/classes/com/alex/astraproject/shared/dto/companies/PaginationDto.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/target/classes/com/alex/astraproject/shared/entities/Position$PositionBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/shared/target/classes/com/alex/astraproject/shared/entities/Position$PositionBuilder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/target/classes/com/alex/astraproject/shared/entities/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/shared/target/classes/com/alex/astraproject/shared/entities/Position.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/target/classes/com/alex/astraproject/shared/eventTypes/EmployeeEventType.class" beforeDir="false" afterPath="$PROJECT_DIR$/shared/target/classes/com/alex/astraproject/shared/eventTypes/EmployeeEventType.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/target/classes/com/alex/astraproject/shared/events/CompanyEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/shared/target/classes/com/alex/astraproject/shared/events/CompanyEvent.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/target/classes/com/alex/astraproject/shared/events/EmployeeEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/shared/target/classes/com/alex/astraproject/shared/events/EmployeeEvent.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/target/classes/com/alex/astraproject/shared/exceptions/projects/ProjectAlreadyHaveRequiredPositionException.class" beforeDir="false" afterPath="$PROJECT_DIR$/shared/target/classes/com/alex/astraproject/shared/exceptions/projects/ProjectAlreadyHaveRequiredPositionException.class" afterDir="false" />
@@ -213,11 +215,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TaskService.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TaskService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/task/TaskService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
+            <state relative-caret-position="448">
+              <caret line="16" column="74" selection-start-line="16" selection-start-column="74" selection-end-line="16" selection-end-column="74" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -225,7 +227,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChangeTaskStatusCommand.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ChangeTaskStatusCommand.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/task/commands/ChangeTaskStatusCommand.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="308">
@@ -267,23 +269,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TaskEventEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/task/TaskEventEntity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="27" column="77" selection-start-line="27" selection-start-column="77" selection-end-line="27" selection-end-column="77" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SprintEntity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/query-service/src/main/java/com/alex/astraproject/queryservice/domain/sprint/SprintEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
+            <state relative-caret-position="308">
               <caret line="11" selection-start-line="11" selection-end-line="11" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="9" selection-start-column="9" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -320,7 +322,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/sprint/commands/positions/AddPositionCommand.java" />
         <option value="$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/sprint/commands/common/CreateProjectCommand.java" />
         <option value="$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/sprint/commands/common/UpdateSprintCommand.java" />
         <option value="$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/sprint/commands/common/CompleteSprintCommand.java" />
@@ -368,9 +369,10 @@
         <option value="$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/clients/TaskClient.java" />
         <option value="$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/task/TaskEventEntity.java" />
         <option value="$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/task/impl/TaskServiceImpl.java" />
-        <option value="$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/task/TaskService.java" />
         <option value="$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/task/commands/ChangeTaskEmployeeCommand.java" />
         <option value="$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/task/commands/ChangeTaskStatusCommand.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/task/TaskService.java" />
       </list>
     </option>
   </component>
@@ -455,27 +457,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="projectsservice" type="462c0819:PsiDirectoryNode" />
-              <item name="clients" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="astra-project-v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="astra-project-v2" type="462c0819:PsiDirectoryNode" />
-              <item name="projects-service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="projectsservice" type="462c0819:PsiDirectoryNode" />
-              <item name="clients" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="astra-project-v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="astra-project-v2" type="462c0819:PsiDirectoryNode" />
-              <item name="projects-service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="projectsservice" type="462c0819:PsiDirectoryNode" />
               <item name="domain" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -488,36 +469,6 @@
               <item name="projectsservice" type="462c0819:PsiDirectoryNode" />
               <item name="domain" type="462c0819:PsiDirectoryNode" />
               <item name="task" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="astra-project-v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="astra-project-v2" type="462c0819:PsiDirectoryNode" />
-              <item name="projects-service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="projectsservice" type="462c0819:PsiDirectoryNode" />
-              <item name="domain" type="462c0819:PsiDirectoryNode" />
-              <item name="task" type="462c0819:PsiDirectoryNode" />
-              <item name="commands" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="astra-project-v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="astra-project-v2" type="462c0819:PsiDirectoryNode" />
-              <item name="shared" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="astra-project-v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="astra-project-v2" type="462c0819:PsiDirectoryNode" />
-              <item name="shared" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="astra-project-v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="astra-project-v2" type="462c0819:PsiDirectoryNode" />
-              <item name="shared" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -814,7 +765,7 @@
       <workItem from="1557382543640" duration="22452000" />
       <workItem from="1557511340355" duration="7756000" />
       <workItem from="1557555960930" duration="22563000" />
-      <workItem from="1557649400644" duration="23353000" />
+      <workItem from="1557649400644" duration="24362000" />
     </task>
     <servers />
   </component>
@@ -851,7 +802,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="300195000" />
+    <option name="totallyTimeSpent" value="301204000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -888,7 +839,7 @@
       <window_info anchor="bottom" id="Version Control" order="14" weight="0.32942432" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.8678038" />
       <window_info anchor="bottom" id="Spring" order="16" weight="0.32942432" />
-      <window_info anchor="bottom" id="Terminal" order="15" weight="0.68191487" />
+      <window_info anchor="bottom" id="Terminal" order="15" weight="0.6812367" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.31122166" />
       <window_info anchor="right" id="Bean Validation" order="9" weight="0.32946378" />
       <window_info id="Web" order="2" side_tool="true" />
@@ -952,13 +903,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/sprint/commands/UpdateSprintCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/sprint/commands/DeleteSprintCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
@@ -1255,16 +1199,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/query-service/src/main/java/com/alex/astraproject/queryservice/domain/sprint/SprintEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/task/TaskEventEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
@@ -1296,16 +1230,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/task/TaskService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/task/commands/ChangeTaskEmployeeCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
@@ -1334,6 +1258,33 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="11" column="38" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="9" selection-start-column="9" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/query-service/src/main/java/com/alex/astraproject/queryservice/domain/sprint/SprintEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projects-service/src/main/java/com/alex/astraproject/projectsservice/domain/task/TaskService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="16" column="74" selection-start-line="16" selection-start-column="74" selection-end-line="16" selection-end-column="74" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
