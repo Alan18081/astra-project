@@ -18,4 +18,7 @@ public interface TaskEventsProcessor {
 
     @Output(TaskEventType.CHANGED_EMPLOYEE)
     MessageChannel changedEmployee();
+
+    @Output(TaskEventType.CHANGED_TASK_STATUS)
+    MessageChannel changedTaskStatus();
 }

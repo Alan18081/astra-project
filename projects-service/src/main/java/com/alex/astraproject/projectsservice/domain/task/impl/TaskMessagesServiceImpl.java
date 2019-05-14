@@ -35,4 +35,9 @@ public class TaskMessagesServiceImpl extends AbstractMessagesService<TaskEventEn
         processor.changedEmployee().send(createMessage(event));
     }
 
+    @Override
+    public void sendChangedStatusEvent(TaskEventEntity event) {
+        processor.changedTaskStatus().send(createMessage(event));
+    }
+
 }

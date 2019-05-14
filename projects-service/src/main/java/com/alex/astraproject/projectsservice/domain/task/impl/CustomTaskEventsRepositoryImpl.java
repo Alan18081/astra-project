@@ -1,7 +1,7 @@
 package com.alex.astraproject.projectsservice.domain.task.impl;
 
-import com.alex.astraproject.projectsservice.domain.task.CustomProjectEventsRepository;
-import com.alex.astraproject.projectsservice.domain.task.ProjectEventEntity;
+import com.alex.astraproject.projectsservice.domain.task.CustomTaskEventsRepository;
+import com.alex.astraproject.projectsservice.domain.task.TaskEventEntity;
 import com.alex.astraproject.shared.dto.common.GetEventsDto;
 import com.alex.astraproject.shared.services.EventsQueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 
 @Repository
-public class CustomTaskEventsRepositoryImpl implements CustomProjectEventsRepository {
+public class CustomTaskEventsRepositoryImpl implements CustomTaskEventsRepository {
 
 	@Autowired
 	private EventsQueryBuilder eventsQueryBuilder;
@@ -19,7 +19,7 @@ public class CustomTaskEventsRepositoryImpl implements CustomProjectEventsReposi
 	private ReactiveMongoTemplate mongoTemplate;
 
 	@Override
-	public Flux<ProjectEventEntity> findManyEvents(GetEventsDto dto) {
-		return mongoTemplate.find(eventsQueryBuilder.createQuery("projectId", dto), ProjectEventEntity.class);
+	public Flux<TaskEventEntity> findManyEvents(GetEventsDto dto) {
+		return mongoTemplate.find(eventsQueryBuilder.createQuery("taskId", dto), TaskEventEntity.class);
 	}
 }

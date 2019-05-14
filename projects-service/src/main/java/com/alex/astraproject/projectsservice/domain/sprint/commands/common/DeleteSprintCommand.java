@@ -1,4 +1,4 @@
-package com.alex.astraproject.projectsservice.domain.sprint.commands;
+package com.alex.astraproject.projectsservice.domain.sprint.commands.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

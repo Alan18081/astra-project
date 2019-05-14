@@ -13,4 +13,6 @@ public interface TaskMessagesService {
 
 	void sendChangedEmployeeEvent(TaskEventEntity event);
 
+	void sendChangedStatusEvent(TaskEventEntity event);
+
 }

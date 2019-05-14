@@ -11,4 +11,8 @@ public interface SprintMessagesService {
 
 	void sendCompletedEvent(SprintEventEntity event);
 
+	void sendCreatedTaskStatusEvent(SprintEventEntity event);
+
+	void sendDeletedTaskStatusEvent(SprintEventEntity event);
+
 }

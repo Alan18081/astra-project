@@ -24,7 +24,12 @@ public class Errors {
 	public static final String PROJECT_DOES_NOT_HAVE_REQUIRED_EMPLOYEE = "Project doesn't have required position";
 
   public static final String SPRINT_NOT_FOUND_BY_ID = "Sprint with provided ID is not found";
+  public static final String SPRINT_ALREADY_HAS_STATUS = "Sprint already has status with provided name";
+  public static final String SPRINT_ALREADY_COMPLETED = "Sprint already completed";
 
+  public static final String TASK_NOT_FOUND_BY_ID = "Task with provided ID is not found";
+  public static final String TASK_ALREADY_HAS_PROVIDED_STATUS = "Task already has provided status";
+  public static final String TASK_ALREADY_ASSIGNED_TO_PROVIDED_EMPLOYEE = "Task already assigned to provided employee";
 
   public static final String AUTH_HEADER_NOT_FOUND = "Authorization header is missing";
   public static final String AUTH_HEADER_CONTENT_NOT_FOUND = "Authorization header content is missing";

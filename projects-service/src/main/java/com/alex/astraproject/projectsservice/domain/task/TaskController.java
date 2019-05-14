@@ -1,8 +1,6 @@
 package com.alex.astraproject.projectsservice.domain.task;
 
-import com.alex.astraproject.projectsservice.domain.task.commands.CreateTaskCommand;
-import com.alex.astraproject.projectsservice.domain.task.commands.DeleteTaskCommand;
-import com.alex.astraproject.projectsservice.domain.task.commands.UpdateTaskCommand;
+import com.alex.astraproject.projectsservice.domain.task.commands.*;
 import com.alex.astraproject.shared.dto.common.GetEventsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,10 +56,22 @@ public class TaskController {
 
 	@PatchMapping("{id}/change-employee")
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public Mono<Void> changeEmployee(@PathVariable String id, @RequestBody @Valid UpdateTaskCommand command) {
+	public Mono<Void> changeEmployee(@PathVariable String id, @RequestBody @Valid ChangeTaskEmployeeCommand command) {
 		command.setId(id);
 		return taskService
-			.updateOne(command)
+			.changeEmployee(command)
+			.flatMap(event -> {
+				taskMessagesService.sendUpdatedEvent(event);
+				return Mono.empty();
+			});
+	}
+
+	@PatchMapping("{id}/change-status")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public Mono<Void> changeStatus(@PathVariable String id, @RequestBody @Valid ChangeStatusCommand command) {
+		command.setTaskId(id);
+		return taskService
+			.changeTaskStatus(command)
 			.flatMap(event -> {
 				taskMessagesService.sendUpdatedEvent(event);
 				return Mono.empty();

@@ -21,4 +21,11 @@ public class EmployeeClientImpl implements EmployeeClient {
 			.retrieve()
 			.bodyToMono(Employee.class);
 	}
+
+	@Override
+	public Mono<Employee> findEmployeeById(String id) {
+		return client.build().get().uri(BASE_URL + "/{id}", id)
+			.retrieve()
+			.bodyToMono(Employee.class);
+	}
 }

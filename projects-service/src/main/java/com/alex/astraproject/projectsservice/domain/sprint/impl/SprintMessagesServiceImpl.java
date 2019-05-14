@@ -27,6 +27,16 @@ public class SprintMessagesServiceImpl extends AbstractMessagesService<SprintEve
         processor.deleted().send(createMessage(event));
     }
 
+    @Override
+    public void sendCreatedTaskStatusEvent(SprintEventEntity event) {
+        processor.createdTaskStatus().send(createMessage(event));
+    }
+
+    @Override
+    public void sendDeletedTaskStatusEvent(SprintEventEntity event) {
+        processor.deletedTaskStatus().send(createMessage(event));
+    }
+
     public void sendUpdatedEvent(SprintEventEntity event) {
         processor.updated().send(createMessage(event));
     }

@@ -1,10 +1,11 @@
 package com.alex.astraproject.projectsservice.domain.sprint;
 
-import com.alex.astraproject.projectsservice.domain.sprint.commands.CompleteSprintCommand;
-import com.alex.astraproject.projectsservice.domain.sprint.commands.CreateSprintCommand;
-import com.alex.astraproject.projectsservice.domain.sprint.commands.DeleteSprintCommand;
-import com.alex.astraproject.projectsservice.domain.sprint.commands.UpdateSprintCommand;
-import com.alex.astraproject.projectsservice.domain.sprint.commands.common.*;
+import com.alex.astraproject.projectsservice.domain.sprint.commands.common.CompleteSprintCommand;
+import com.alex.astraproject.projectsservice.domain.sprint.commands.common.CreateSprintCommand;
+import com.alex.astraproject.projectsservice.domain.sprint.commands.common.DeleteSprintCommand;
+import com.alex.astraproject.projectsservice.domain.sprint.commands.common.UpdateSprintCommand;
+import com.alex.astraproject.projectsservice.domain.sprint.commands.statuses.CreateTaskStatusCommand;
+import com.alex.astraproject.projectsservice.domain.sprint.commands.statuses.DeleteTaskStatusCommand;
 import com.alex.astraproject.shared.dto.common.GetEventsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,6 +67,30 @@ public class SprintController {
 			.completeOne(command)
 			.flatMap(event -> {
 				sprintMessagesService.sendCompletedEvent(event);
+				return Mono.empty();
+			});
+	}
+
+	@PatchMapping("{id}/create-task-status")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public Mono<Void> createTaskStatus(@PathVariable String id, @RequestBody @Valid CreateTaskStatusCommand command) {
+		command.setSprintId(id);
+		return sprintService
+			.createTaskStatus(command)
+			.flatMap(event -> {
+				sprintMessagesService.sendCreatedTaskStatusEvent(event);
+				return Mono.empty();
+			});
+	}
+
+	@PatchMapping("{id}/delete-task-status")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public Mono<Void> deleteTaskStatus(@PathVariable String id, @RequestBody @Valid DeleteTaskStatusCommand command) {
+		command.setSprintId(id);
+		return sprintService
+			.deleteTaskStatus(command)
+			.flatMap(event -> {
+				sprintMessagesService.sendDeletedTaskStatusEvent(event);
 				return Mono.empty();
 			});
 	}

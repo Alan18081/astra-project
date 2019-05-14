@@ -14,4 +14,12 @@ public class Task {
 
     private String name;
 
+    private String createdAt;
+
+    private String status;
+
+    private Employee employee;
+
+    private String sprintId;
+
 }

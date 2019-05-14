@@ -7,4 +7,6 @@ public interface EmployeeClient {
 
 	Mono<Employee> findEmployeeByIdAndCompanyId(String employeeId, String companyId);
 
+	Mono<Employee> findEmployeeById(String id);
+
 }

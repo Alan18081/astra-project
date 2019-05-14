@@ -12,7 +12,7 @@ public interface TaskService extends EventsService<TaskEventEntity> {
 
 	Mono<TaskEventEntity> deleteOne(DeleteTaskCommand command);
 
-	Mono<TaskEventEntity> changeStatus(ChangeTaskStatusCommand command);
+	Mono<TaskEventEntity> changeTaskStatus(ChangeStatusCommand command);
 
 	Mono<TaskEventEntity> changeEmployee(ChangeTaskEmployeeCommand command);
 }

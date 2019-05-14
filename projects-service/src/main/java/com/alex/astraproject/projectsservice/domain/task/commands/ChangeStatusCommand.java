@@ -9,6 +9,14 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChangeTaskStatusCommand {
+public class ChangeStatusCommand {
+
+	private String taskId;
+
+	@NotNull
+	private String sprintId;
+
+	@NotNull
+	private String statusName;
 
 }
