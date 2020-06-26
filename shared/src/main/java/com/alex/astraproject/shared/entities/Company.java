@@ -1,20 +1,24 @@
 package com.alex.astraproject.shared.entities;
 
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Company {
 
-    private long id;
+    private String id;
 
     private String name;
 
-    private String corporateEmail;
+    private String email;
 
-    private List<Employee> employees;
+    private Set<Employee> employees = new HashSet<>();
 
     private String password;
 

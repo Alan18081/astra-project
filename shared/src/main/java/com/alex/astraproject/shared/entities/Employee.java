@@ -1,14 +1,23 @@
 package com.alex.astraproject.shared.entities;
 
-import lombok.Data;
+import com.alex.astraproject.shared.statuses.EmployeeStatus;
+import lombok.*;
+
+import java.util.UUID;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Employee {
-    private long id;
+    @EqualsAndHashCode.Include
+    private String id;
     private String firstName;
     private String lastName;
     private String email;
     private int age;
     private String password;
     private Company company;
+    private EmployeeStatus status;
 }
