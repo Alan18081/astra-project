@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
@@ -190,7 +191,7 @@ public class TaskControllerTest {
 	@Test
 	public void deleteTaskCommand_taskNotFound() {
 		Mockito.when(mockTaskQueryClient.findTaskById(anyString())).thenReturn(Mono.empty());
-		client.patch().uri("/tasks/{id}", taskId)
+		client.delete().uri("/tasks/{id}", taskId)
 			.exchange()
 			.expectStatus().isNotFound()
 			.expectBody()
@@ -205,9 +206,14 @@ public class TaskControllerTest {
 		mockProject.setEmployees(Sets.newHashSet(Employee.builder().id(employeeId).build()));
 		Task mockTask = new Task();
 		mockTask.setId(taskId);
+		mockTask.setSprintId(UUID.randomUUID().toString());
+		mockTask.setEmployee(Employee.builder().id(UUID.randomUUID().toString()).build());
 		Mockito.when(mockTaskQueryClient.findTaskById(anyString())).thenReturn(Mono.just(mockTask));
-		Mockito.when(mockSprintQueryClient.findSprintById(anyString())).thenReturn(Mono.just(new Sprint()));
-		Mockito.when(mockProjectQueryClient.findProjectById(anyString())).thenReturn(Mono.just(mockProject));
+
+		Mockito.when(mockSprintQueryClient.findSprintById(anyString())).thenReturn(Mono.just(
+			Sprint.builder().projectId(UUID.randomUUID().toString()).build()
+		));
+		Mockito.when(mockProjectQueryClient.findProjectById(anyString(), eq(true))).thenReturn(Mono.just(mockProject));
 		ChangeTaskEmployeeCommand command = new ChangeTaskEmployeeCommand();
 		command.setId(taskId);
 		command.setEmployeeId(employeeId);
@@ -235,7 +241,7 @@ public class TaskControllerTest {
 		command.setId(taskId);
 		command.setEmployeeId(employeeId);
 
-		client.patch().uri("/tasks/{id}/complete", taskId)
+		client.patch().uri("/tasks/{id}/change-employee", taskId)
 			.body(Mono.just(command), ChangeTaskEmployeeCommand.class)
 			.exchange()
 			.expectStatus().isNotFound()
@@ -254,7 +260,7 @@ public class TaskControllerTest {
 		command.setId(taskId);
 		command.setEmployeeId(employeeId);
 
-		client.patch().uri("/tasks/{id}/complete", taskId)
+		client.patch().uri("/tasks/{id}/change-employee", taskId)
 			.body(Mono.just(command), ChangeTaskEmployeeCommand.class)
 			.exchange()
 			.expectStatus().isBadRequest()
@@ -269,13 +275,16 @@ public class TaskControllerTest {
 		String employeeId = UUID.randomUUID().toString();
 		Project mockProject = new Project();
 		mockProject.setEmployees(Sets.newHashSet());
-		Task mockTask = new Task();
-		mockTask.setId(taskId);
-		mockTask.setEmployee(Employee.builder().id(UUID.randomUUID().toString()).build());
+		Task mockTask = Task.builder()
+			.employee(Employee.builder().id(UUID.randomUUID().toString()).build())
+			.sprintId(UUID.randomUUID().toString())
+			.build();
 
 		Mockito.when(mockTaskQueryClient.findTaskById(anyString())).thenReturn(Mono.just(mockTask));
-		Mockito.when(mockSprintQueryClient.findSprintById(anyString())).thenReturn(Mono.just(new Sprint()));
-		Mockito.when(mockProjectQueryClient.findProjectById(anyString())).thenReturn(Mono.just(mockProject));
+		Mockito.when(mockSprintQueryClient.findSprintById(anyString())).thenReturn(Mono.just(
+			Sprint.builder().projectId(UUID.randomUUID().toString()).build()
+		));
+		Mockito.when(mockProjectQueryClient.findProjectById(anyString(), eq(true))).thenReturn(Mono.just(mockProject));
 		ChangeTaskEmployeeCommand command = new ChangeTaskEmployeeCommand();
 		command.setId(taskId);
 		command.setEmployeeId(employeeId);
@@ -283,7 +292,7 @@ public class TaskControllerTest {
 		client.patch().uri("/tasks/{id}/change-employee", taskId)
 			.body(Mono.just(command), ChangeTaskEmployeeCommand.class)
 			.exchange()
-			.expectStatus().isNotFound()
+			.expectStatus().isBadRequest()
 			.expectBody()
 			.jsonPath("$.message").isEqualTo(Errors.PROJECT_DOES_NOT_HAVE_REQUIRED_EMPLOYEE);
 	}
@@ -295,6 +304,8 @@ public class TaskControllerTest {
 		mockSprint.setId(mockSprintId);
 		Task mockTask = new Task();
 		mockTask.setId(taskId);
+		mockTask.setSprintId(mockSprintId);
+		mockTask.setStatus("Testing");
 		Mockito.when(mockSprintQueryClient.findSprintById(anyString())).thenReturn(Mono.just(mockSprint));
 		Mockito.when(mockTaskQueryClient.findTaskById(anyString())).thenReturn(Mono.just(mockTask));
 		ChangeStatusCommand command = new ChangeStatusCommand();
@@ -319,7 +330,7 @@ public class TaskControllerTest {
 	public void changeTaskStatus_sprintNotFound() {
 		Mockito.when(mockSprintQueryClient.findSprintById(anyString())).thenReturn(Mono.empty());
 		ChangeStatusCommand command = new ChangeStatusCommand();
-		command.setTaskId(taskId);
+		command.setSprintId(taskId);
 		command.setStatusName("Done");
 
 		client.patch().uri("/tasks/{id}/change-status", taskId)
@@ -335,12 +346,10 @@ public class TaskControllerTest {
 		String mockSprintId = UUID.randomUUID().toString();
 		Sprint mockSprint = new Sprint();
 		mockSprint.setId(mockSprintId);
-		Task mockTask = new Task();
-		mockTask.setId(taskId);
 		Mockito.when(mockSprintQueryClient.findSprintById(anyString())).thenReturn(Mono.just(mockSprint));
-		Mockito.when(mockSprintQueryClient.findSprintById(anyString())).thenReturn(Mono.empty());
+		Mockito.when(mockTaskQueryClient.findTaskById(anyString())).thenReturn(Mono.empty());
 		ChangeStatusCommand command = new ChangeStatusCommand();
-		command.setTaskId(taskId);
+		command.setSprintId(mockSprintId);
 		command.setStatusName("Done");
 
 		client.patch().uri("/tasks/{id}/change-status", taskId)
@@ -348,25 +357,26 @@ public class TaskControllerTest {
 			.exchange()
 			.expectStatus().isNotFound()
 			.expectBody()
-			.jsonPath("$.message").isEqualTo(Errors.SPRINT_NOT_FOUND_BY_ID);
+			.jsonPath("$.message").isEqualTo(Errors.TASK_NOT_FOUND_BY_ID);
 	}
 
 	@Test
-	public void changeTaskStatus_employeeNotFound() {
+	public void changeTaskStatus_taskAlreadyHashProvidedStatus() {
 		String mockSprintId = UUID.randomUUID().toString();
-		Sprint mockSprint = new Sprint();
-		mockSprint.setId(mockSprintId);
+		Sprint mockSprint = Sprint.builder().id(mockSprintId).build();
+		Task mockTask = Task.builder().id(taskId).sprintId(mockSprintId).status("Testing").build();
+
 		Mockito.when(mockSprintQueryClient.findSprintById(anyString())).thenReturn(Mono.just(mockSprint));
-		Mockito.when(mockSprintQueryClient.findSprintById(anyString())).thenReturn(Mono.empty());
+		Mockito.when(mockTaskQueryClient.findTaskById(anyString())).thenReturn(Mono.just(mockTask));
 		ChangeStatusCommand command = new ChangeStatusCommand();
-		command.setTaskId(taskId);
-		command.setStatusName("Done");
+		command.setSprintId(mockSprintId);
+		command.setStatusName("Testing");
 
 		client.patch().uri("/tasks/{id}/change-status", taskId)
 			.body(Mono.just(command), ChangeStatusCommand.class)
 			.exchange()
-			.expectStatus().isNotFound()
+			.expectStatus().isBadRequest()
 			.expectBody()
-			.jsonPath("$.message").isEqualTo(Errors.SPRINT_NOT_FOUND_BY_ID);
+			.jsonPath("$.message").isEqualTo(Errors.TASK_ALREADY_HAS_PROVIDED_STATUS);
 	}
 }

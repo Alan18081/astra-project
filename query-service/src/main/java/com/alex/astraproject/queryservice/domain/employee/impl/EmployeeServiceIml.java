@@ -4,8 +4,11 @@ import com.alex.astraproject.queryservice.clients.EmployeeClient;
 import com.alex.astraproject.queryservice.domain.employee.EmployeeEntity;
 import com.alex.astraproject.queryservice.domain.employee.EmployeeRepository;
 import com.alex.astraproject.queryservice.domain.employee.EmployeeService;
+import com.alex.astraproject.queryservice.domain.employee.dto.FindManyEmployeesDto;
 import com.alex.astraproject.shared.events.EmployeeEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -40,6 +43,17 @@ public class EmployeeServiceIml implements EmployeeService {
 
     public Mono<EmployeeEntity> findOneByEmail(String email) {
         return Mono.justOrEmpty(employeeRepository.findFirstByEmail(email));
+    }
+
+    @Override
+    public Flux<EmployeeEntity> findMany(FindManyEmployeesDto dto) {
+        Pageable pageable = PageRequest.of(dto.getPage(), dto.getLimit());
+        return Flux.fromIterable(employeeRepository.findAll(pageable));
+    }
+
+    @Override
+    public Flux<EmployeeEntity> findManyThatWorksWithProvidedEmployee(String employeeId) {
+        return Flux.fromIterable(employeeRepository.findManyThatWorksWithOne(employeeId));
     }
 
     @Override

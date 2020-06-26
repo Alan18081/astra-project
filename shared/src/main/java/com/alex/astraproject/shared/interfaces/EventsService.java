@@ -6,4 +6,5 @@ import reactor.core.publisher.Flux;
 public interface EventsService<T> {
 
 	Flux<T> getEvents(GetEventsDto dto);
+
 }

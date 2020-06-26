@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -20,12 +21,12 @@ public class Project {
 
     private String description;
 
-    private Set<Employee> employees;
+    private Set<Employee> employees = new HashSet<>();
 
     private ProjectStatus Status;
 
     private String companyId;
 
-    private Set<Position> positions;
+    private Set<Position> positions = new HashSet<>();
 
 }

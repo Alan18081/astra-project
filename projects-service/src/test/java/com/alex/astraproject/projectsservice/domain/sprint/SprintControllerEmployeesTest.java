@@ -5,7 +5,6 @@ import com.alex.astraproject.projectsservice.clients.ProjectClient;
 import com.alex.astraproject.projectsservice.clients.SprintClient;
 import com.alex.astraproject.projectsservice.domain.sprint.commands.common.CompleteSprintCommand;
 import com.alex.astraproject.projectsservice.domain.sprint.commands.common.CreateSprintCommand;
-import com.alex.astraproject.projectsservice.domain.sprint.commands.common.DeleteSprintCommand;
 import com.alex.astraproject.projectsservice.domain.sprint.commands.common.UpdateSprintCommand;
 import com.alex.astraproject.projectsservice.domain.sprint.commands.statuses.CreateTaskStatusCommand;
 import com.alex.astraproject.projectsservice.domain.sprint.commands.statuses.DeleteTaskStatusCommand;
@@ -18,7 +17,6 @@ import org.apache.commons.compress.utils.Sets;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -195,7 +193,7 @@ public class SprintControllerEmployeesTest {
 	@Test
 	public void deleteSprintCommand_sprintNotFound() {
 		Mockito.when(mockSprintQueryClient.findSprintById(anyString())).thenReturn(Mono.empty());
-		client.patch().uri("/sprints/{id}", sprintId)
+		client.delete().uri("/sprints/{id}", sprintId)
 			.exchange()
 			.expectStatus().isNotFound()
 			.expectBody()
@@ -244,6 +242,7 @@ public class SprintControllerEmployeesTest {
 	public void createTaskStatusToSprint() {
 		Sprint mockSprint = new Sprint();
 		mockSprint.setId(sprintId);
+		mockSprint.setTaskStatuses(Sets.newHashSet());
 		Mockito.when(mockSprintQueryClient.findSprintById(anyString())).thenReturn(Mono.just(mockSprint));
 		CreateTaskStatusCommand command = new CreateTaskStatusCommand();
 		command.setSprintId(sprintId);
@@ -310,6 +309,7 @@ public class SprintControllerEmployeesTest {
 		Mockito.when(mockSprintQueryClient.findSprintById(anyString())).thenReturn(Mono.empty());
 		DeleteTaskStatusCommand command = new DeleteTaskStatusCommand();
 		command.setSprintId(sprintId);
+		command.setStatusName("Done");
 
 		client.patch().uri("/sprints/{id}/delete-task-status", sprintId)
 			.body(Mono.just(command), DeleteTaskStatusCommand.class)

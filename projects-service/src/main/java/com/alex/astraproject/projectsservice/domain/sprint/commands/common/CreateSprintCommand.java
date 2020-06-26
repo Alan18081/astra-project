@@ -17,6 +17,6 @@ public class CreateSprintCommand {
     private String description;
 
     @NotNull
-    private String companyId;
+    private String projectId;
 
 }

@@ -20,7 +20,7 @@ public class EmployeeController {
 
     @GetMapping
     public Flux<EmployeeEntity> findMany() {
-        return employeeService.findMany();
+        return employeeService.findMany(null);
     }
 
     @GetMapping("{id}")

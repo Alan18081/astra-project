@@ -10,6 +10,6 @@ public class ProjectEventType {
     public static final String ADDED_EMPLOYEE = "[Project] Added Employee";
     public static final String REMOVED_EMPLOYEE = "[Project] Removed Employee";
     public static final String CHANGED_EMPLOYEE_POSITION = "[Project] Changed Employee's Position";
-	public static final String ADDED_POSITION = "[Project] Added Position";
-	public static final String REMOVED_POSITION = "[Project] Removed Position";
+    public static final String ADDED_POSITION = "[Project] Added Position";
+    public static final String REMOVED_POSITION = "[Project] Removed Position";
 }

@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,6 +16,4 @@ public class CreateTaskStatusCommand {
 	@NotBlank
 	private String name;
 
-	@NotEmpty
-	private List<String> userIds;
 }

@@ -26,6 +26,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
@@ -39,7 +40,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 @DirtiesContext
 public class CompanyAuthControllerTest {
 	private Company company = new Company(
-		UUID.randomUUID().toString(), "Some company", "company@gmail.com", new ArrayList<>(), "dgfdgfg"
+		UUID.randomUUID().toString(), "Some company", "company@gmail.com", new HashSet<>(), "dgfdgfg"
 	);
 
 	@Autowired

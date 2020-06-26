@@ -9,7 +9,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 
-
 @Document
 @Getter
 @ToString
@@ -21,7 +20,6 @@ public class EmployeeEventEntity extends BaseEventEntity {
 
     @Field
     private String employeeId;
-
 
     @Builder
     public EmployeeEventEntity(Object data, long revision, String id, String employeeId, String type) {

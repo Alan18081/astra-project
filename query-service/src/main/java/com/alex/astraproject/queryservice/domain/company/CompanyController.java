@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/companies")
 public class CompanyController {
@@ -21,7 +19,7 @@ public class CompanyController {
 
     @GetMapping
     public Flux<CompanyEntity> findMany() {
-        return companyService.findMany();
+        return companyService.findMany(null);
     }
 
     @GetMapping("{id}")

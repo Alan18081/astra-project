@@ -82,9 +82,7 @@ public class CompanyControllerTest {
         companyEventsRepository.deleteAll()
           .thenMany(Flux.fromIterable(list))
           .flatMap(companyEventsRepository::save)
-          .doOnNext(item -> {
-              System.out.println("Inserted: " + item);
-          })
+          .doOnNext(item -> System.out.println("Inserted: " + item))
           .blockLast();
     }
     @Test

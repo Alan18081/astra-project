@@ -1,12 +1,11 @@
 package com.alex.astraproject.shared.entities;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +18,7 @@ public class Company {
 
     private String email;
 
-    private List<Employee> employees;
+    private Set<Employee> employees = new HashSet<>();
 
     private String password;
 

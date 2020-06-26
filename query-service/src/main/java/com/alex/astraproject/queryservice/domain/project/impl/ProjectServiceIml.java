@@ -3,6 +3,9 @@ package com.alex.astraproject.queryservice.domain.project.impl;
 import com.alex.astraproject.queryservice.domain.project.ProjectEntity;
 import com.alex.astraproject.queryservice.domain.project.ProjectRepository;
 import com.alex.astraproject.queryservice.domain.project.ProjectService;
+import com.alex.astraproject.queryservice.domain.project.dto.FindManyProjectsWhereEmployeeWorkedDto;
+import com.alex.astraproject.queryservice.domain.project.dto.FindManyProjectsWhereTwoEmployeesWorksDto;
+import com.alex.astraproject.queryservice.domain.project.dto.FindManyProjectsWithTextDto;
 import com.alex.astraproject.shared.events.ProjectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,21 @@ public class ProjectServiceIml implements ProjectService {
 
     public Flux<ProjectEntity> findMany() {
         return Flux.fromIterable(projectRepository.findAll());
+    }
+
+    @Override
+    public Flux<ProjectEntity> findManyProjectsWhereTwoEmployeeWorks(FindManyProjectsWhereTwoEmployeesWorksDto dto) {
+        return null;
+    }
+
+    @Override
+    public Flux<ProjectEntity> findManyProjectsWhereEmployeeWorked(FindManyProjectsWhereEmployeeWorkedDto dto) {
+        return null;
+    }
+
+    @Override
+    public Flux<ProjectEntity> findManyProjectsWithTextDto(FindManyProjectsWithTextDto dto) {
+        return null;
     }
 
     @Override

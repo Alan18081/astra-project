@@ -3,6 +3,8 @@ package com.alex.astraproject.queryservice.domain.company.impl;
 import com.alex.astraproject.queryservice.domain.company.CompanyEntity;
 import com.alex.astraproject.queryservice.domain.company.CompanyRepository;
 import com.alex.astraproject.queryservice.domain.company.CompanyService;
+import com.alex.astraproject.queryservice.domain.company.dto.FindManyCompaniesDto;
+import com.alex.astraproject.queryservice.domain.company.dto.FindManyCompaniesWhereEmployeeWorkedDto;
 import com.alex.astraproject.shared.events.CompanyEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +41,16 @@ public class CompanyServiceIml implements CompanyService {
 
     public Mono<CompanyEntity> findOneByEmail(String email) {
         return Mono.justOrEmpty(companyRepository.findFirstByEmail(email));
+    }
+
+    @Override
+    public Flux<CompanyEntity> findMany(FindManyCompaniesDto dto) {
+        return null;
+    }
+
+    @Override
+    public Flux<CompanyEntity> findManyWhereEmployeeWorked(FindManyCompaniesWhereEmployeeWorkedDto dto) {
+        return null;
     }
 
     @Override

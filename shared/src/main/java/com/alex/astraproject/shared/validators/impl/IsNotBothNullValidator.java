@@ -1,11 +1,13 @@
 package com.alex.astraproject.shared.validators.impl;
 
 import com.alex.astraproject.shared.validators.annotations.IsNotBothNull;
+import lombok.val;
+import lombok.var;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 
 public class IsNotBothNullValidator implements ConstraintValidator<IsNotBothNull, Object> {
 	private String firstFieldName;
@@ -19,10 +21,12 @@ public class IsNotBothNullValidator implements ConstraintValidator<IsNotBothNull
 	@Override
 	public boolean isValid(Object o, ConstraintValidatorContext constraintValidatorContext) {
 		try {
-				Object firstValue = BeanUtils.getProperty(o, firstFieldName);
-				Object secondValue = BeanUtils.getProperty(o, secondFieldName);
+			val type = new HashMap<String, String>();
+			type.put("Some string", "Some key");
+			Object firstValue = BeanUtils.getProperty(o, firstFieldName);
+			Object secondValue = BeanUtils.getProperty(o, secondFieldName);
 
-				return !(firstValue == null && secondValue == null);
+			return !(firstValue == null && secondValue == null);
 
 		} catch (Exception e) {
 			e.printStackTrace();

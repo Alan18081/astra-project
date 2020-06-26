@@ -43,7 +43,7 @@ public class SprintServiceImpl implements SprintService {
 
 	@Override
 	public Mono<SprintEventEntity> createOne(CreateSprintCommand command) {
-		return projectClient.findProjectById(command.getCompanyId())
+		return projectClient.findProjectById(command.getProjectId())
 			.switchIfEmpty(Mono.error(new NotFoundException(Errors.PROJECT_NOT_FOUND_BY_ID)))
 			.flatMap(company -> {
 				String entityId = UUID.randomUUID().toString();

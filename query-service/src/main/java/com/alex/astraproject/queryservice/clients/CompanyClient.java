@@ -1,6 +1,5 @@
 package com.alex.astraproject.queryservice.clients;
 
-import com.alex.astraproject.shared.entities.Company;
 import com.alex.astraproject.shared.events.CompanyEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

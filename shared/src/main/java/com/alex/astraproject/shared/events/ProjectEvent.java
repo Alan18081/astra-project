@@ -13,6 +13,4 @@ public class ProjectEvent extends BaseEvent {
 
     private String projectId;
 
-
 }
-

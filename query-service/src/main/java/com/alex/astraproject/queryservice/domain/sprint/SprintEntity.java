@@ -16,9 +16,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class SprintEntity extends BaseEntity {
 
-	@Id
-	private String id;
-
 	@Property
 	private String name;
 

@@ -43,7 +43,7 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public Mono<TaskEventEntity> createOne(CreateTaskCommand command) {
 		return sprintClient.findSprintById(command.getSprintId())
-			.switchIfEmpty(Mono.error(new NotFoundException(Errors.COMPANY_NOT_FOUND_BY_ID)))
+			.switchIfEmpty(Mono.error(new NotFoundException(Errors.SPRINT_NOT_FOUND_BY_ID)))
 			.flatMap(company -> {
 				String entityId = UUID.randomUUID().toString();
 				TaskEventEntity event = TaskEventEntity.builder()
@@ -73,6 +73,7 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public Mono<TaskEventEntity> changeTaskStatus(ChangeStatusCommand command) {
 		return sprintClient.findSprintById(command.getSprintId())
+			.switchIfEmpty(Mono.error(new NotFoundException(Errors.SPRINT_NOT_FOUND_BY_ID)))
 			.flatMap(sprint ->
 				findTask(command.getTaskId())
 					.flatMap(task -> {
@@ -92,10 +93,13 @@ public class TaskServiceImpl implements TaskService {
 				if(task.getEmployee().equals(requiredEmployee)) {
 					return Mono.error(new TaskAlreadyAssignedToProvidedEmployee());
 				}
-
 				return sprintClient.findSprintById(task.getSprintId())
-					.flatMap(sprint -> projectClient.findProjectById(sprint.getProjectId(), true))
+					.flatMap(sprint -> {
+						System.out.println("Hoodd: " + sprint);
+						return projectClient.findProjectById(sprint.getProjectId(), true);
+					})
 					.flatMap(project -> {
+						System.out.println("Hoodd2: " + project);
 						if(!project.getEmployees().contains(requiredEmployee)) {
 							return Mono.error(new ProjectDoesNotHaveRequiredPositionException());
 						}

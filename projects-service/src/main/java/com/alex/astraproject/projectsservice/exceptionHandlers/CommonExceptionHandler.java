@@ -25,10 +25,6 @@ public class CommonExceptionHandler extends AbstractHttpExceptionHandler {
 
 	@ExceptionHandler({
 		EmployeeHasWrongStatusException.class,
-		ProjectAlreadyHaveDesiredStatusException.class,
-		ProjectAlreadyHaveRequiredPositionException.class,
-		ProjectDoesNotHaveRequiredEmployeeException.class,
-		ProjectDoesNotHaveRequiredPositionException.class
 	})
 	public Mono<ResponseEntity<HttpErrorResponse>> handle(RuntimeException ex) {
 		return super.handle(HttpStatus.BAD_REQUEST, ex);
